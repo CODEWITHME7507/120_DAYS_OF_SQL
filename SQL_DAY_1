@@ -1,1 +1,63 @@
+'''Day 1 – SQL Basics Practice
 
+1. Create a database named "CompanyDB".
+
+CREATE DATABASE CompanyDB;
+
+2. Use the "CompanyDB" database.
+
+USE CompanyDB;
+
+3. Create a table named "Employees1" with the following columns:
+   
+   - EmployeeID
+   - Name
+   - Age
+   - Department
+   - Salary
+   
+CREATE TABLE Employees1 (
+    EmployeeID INT PRIMAY KEY,
+    Name VARCHAR(50) NOT NULL,
+    Age INT NOT NULL,
+    Department VARCHAR(50) NOT NULL,
+    Salary INT NOT NULL);
+       
+
+4. Insert 10 employee records into the "Employees" table.
+
+INSERT INTO Employees1 (EmployeeID, Name, Age, Department, Salary) VALUES
+(1, 'Aarav Sharma', 25, 'HR', 35000),
+(2, 'Priya Patel', 28, 'Finance', 45000),
+(3, 'Rahul Verma', 30, 'IT', 55000),
+(4, 'Sneha Joshi', 27, 'Marketing', 42000),
+(5, 'Vikram Singh', 35, 'Sales', 60000),
+(6, 'Ananya Gupta', 24, 'HR', 34000),
+(7, 'Rohan Mehta', 32, 'IT', 70000),
+(8, 'Neha Kulkarni', 29, 'Finance', 50000),
+(9, 'Karan Desai', 31, 'Operations', 52000),
+(10, 'Pooja Nair', 26, 'Marketing', 41000);
+
+5. Display all records from the "Employees" table.
+
+SElECT * FROM Employees1;
+
+6. Display only the "Name" and "Salary" columns.
+
+SELECT Name , Salary FROM Employees1;
+
+7. Display employees whose salary is greater than "50000".
+
+SELECT * FROM Employees1 WHERE Salary > 50000;
+
+8. Display employees whose age is between "25" and "35".
+
+SELECT * FROM Employees1 WHERE Age >= 25 AND Age <=35;
+
+9. Display all employees sorted by salary in descending order.
+
+SELECT * FROM Employees1 ORDER BY Salary DESC;
+
+10. Display unique department names.
+
+SELECT DISTINCT(Department) FROM Employees1;
