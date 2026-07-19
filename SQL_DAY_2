@@ -1,0 +1,65 @@
+'''
+Day 2 -     SQL Practice Questions
+'''
+
+'''
+Q1. Create a table named Students with the following columns:
+StudentID, Name, Age, City, and Marks.
+
+CREATE TABLE Students (
+StudentID INTEGER PRIMARY KEY,
+Name VARCHAR(15) NOT NULL,
+Age INTEGER NOT NULL,
+City VARCHAR(15) NOT NULL,
+Marks INTEGER NOT NULL);
+
+
+Q2. Insert at least 15 student records into the Students table.
+
+INSERT INTO STUDENTS (StudentID,Name,Age,City,Marks)
+VALUES (1, 'Shubham', 20, 'Chh.sambhajinagar', 77)
+(2, 'Abhishek', 20, 'Jalna', 89)
+(3, 'Rohit', 20, 'Dule', 88)
+(4, 'Kishor', 20, 'bid', 90)
+(5, 'Ramu', 20, '55', 66)
+(6, 'Rushikesh', 20, 'delhi', 88)
+(7, 'Pavan', 20, 'Rajur', 99)
+(8, 'Shubham j', 20, 'jalna', 98)
+(9, 'sam', 20, 'karnatak', 99)
+(10, 'dinesh', 20, 'mumbai', 90)
+
+Q3. Display the names of students who scored more than 80 marks.
+
+SELECT * FROM Students 
+WHERE Marks > = 80 ;
+
+Q4. Display all students whose city is either 'Pune' or 'Mumbai'.
+
+SELECT * FROM Students
+WHERE City = 'Pune' OR City = 'Mumbai';
+
+Q5. Display the students whose names end with the letter 'n'.
+
+SElECT * FROM Students
+WHERE Name LIKE '%n';
+
+Q6. Count the total number of students in the Students table.
+
+SELECT COUNT(StudentID) as Total_student FROM Students;
+
+Q7. Find the highest marks and the lowest marks from the Students table.
+
+SELECT MAX(Marks) AS Highest,MIN(Marks) AS Lowest FROM Students;
+
+Q8. Calculate the average marks of all students.
+
+SELECT AVG(Marks) FROM Students;
+
+Q9. Display each student's name in UPPERCASE and lowercase using SQL string functions.
+
+SELECT UPPER(Name) AS UPPECASE , LOWER(Name) AS LOWERCASE FROM Students;
+
+Q10. Display the top 5 students with the highest marks.
+
+SELECT * FROM Students ORDER BY DESC LIMIT 5;
+'''
