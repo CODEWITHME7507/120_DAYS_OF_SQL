@@ -1,61 +1,76 @@
--- Day 4 - SQL Practice Questions (Intermediate)
-CREATE TABLE Employees(
-EmpID INT PRIMARY KEY,
-EmpName VARCHAR(20) NOT NULL,
-Department VARCHAR(20) NOT NULL,
-Salary INT NOT NULL);
+Day 3 - SQL Practice Questions (Intermediate)
 
--- Q1. Display the total number of employees in each department using GROUP BY.
+Q1. Create a table named Orders with the following columns:
+OrderID, CustomerName, ProductName, Category, Quantity, Price, and OrderDate.
 
-SELECT Department,COUNT(*) AS total_emp FROM Employees 
-GROUP BY Department;
+CREATE TABLE Orders (
+    OrderID INTEGER PRIMARY KEY,
+    CustomerName VARCHAR(20) NOT NULL,
+    ProductName VARCHAR(20) NOT NULL,
+    Category VARCHAR(20) NOT NULL,
+    Quantity INTEGER NOT NULL,
+    Price INTEGER NOT NULL,
+    OrderDate TEXT NOT NULL);
 
+Q2. Insert at least 20 records into the Orders table.
 
--- Q2. Display the average salary of each department.
+INSERT INTO Orders1 (OrderID, CustomerName, ProductName, Category, Quantity, Price,OrderDate)
+VALUES (5, 'Aarav Sharma', 'Laptop', 'Electronics', 1, 65000, '2026-01-05'),
+(6, 'Priya Verma', 'Wireless Mouse', 'Electronics', 2, 1200, '2026-01-06'),
+(7, 'Rahul Patil', 'Office Chair', 'Furniture', 1, 7500, '2026-01-07'),
+(8, 'Sneha Joshi', 'Notebook', 'Stationery', 10, 50, '2026-01-08'),
+(9, 'Vikram Singh', 'Water Bottle', 'Kitchen', 3, 350, '2026-01-09'),
+(10, 'Neha Gupta', 'Smartphone', 'Electronics', 1, 28000, '2026-01-10'),
+(11, 'Rohan Deshmukh', 'Backpack', 'Bags', 2, 1800, '2026-01-11'),
+(12, 'Anjali Kulkarni', 'LED Monitor', 'Electronics', 1, 14500, '2026-01-12'),
+(13, 'Karan Mehta', 'Keyboard', 'Electronics', 2, 900, '2026-01-13'),
+(14, 'Pooja Nair', 'Dining Table', 'Furniture', 1, 22000, '2026-01-14'),
+(15, 'Sahil Kapoor', 'Coffee Mug', 'Kitchen', 6, 250, '2026-01-15'),
+(16, 'Meera Iyer', 'Headphones', 'Electronics', 1, 3200, '2026-01-16'),
+(17, 'Aditya Rao', 'Pen Set', 'Stationery', 5, 120, '2026-01-17'),
+(18, 'Kavya Reddy', 'Bookshelf', 'Furniture', 1, 9500, '2026-01-18'),
+(19, 'Nikhil Jain', 'Tablet', 'Electronics', 1, 24000, '2026-01-19'),
+(20, 'Simran Kaur', 'Mixer Grinder', 'Kitchen', 1, 4200, '2026-01-20'),
+(21, 'Harsh Agarwal', 'School Bag', 'Bags', 2, 1500, '2026-01-21'),
+(22, 'Isha Malhotra', 'Desk Lamp', 'Furniture', 3, 850, '2026-01-22'),
+(23, 'Arjun Bhosale', 'Printer', 'Electronics', 1, 9800, '2026-01-23'),
+(24, 'Ritika Sinha', 'Calculator', 'Stationery', 4, 600, '2026-01-24');
 
-SELECT Department , AVG(Salary) FROM Employees 
-GROUP BY Department ;
+Q3. Display the total sales amount for each order using Quantity × Price.
 
--- Q3. Find the department with the highest average salary.
+SELECT SUM(Quantity) * Price FROM Orders1;
 
-SELECT Department,AVG(Salary) AS HIGH_AVG FROM Employees 
-GROUP BY Department ORDER BY HIGH_AVG DESC LIMIT 1;
+Q4. Find all orders where the Quantity is greater than 5 and the Price is greater than 1000.
 
--- Q4. Display only those departments where the total salary is greater than 200000 using HAVING.
+SELECT * FROM Orders1 
+WHERE Quantity > 5 AND Price > 1000;
 
-SELECT Department,SUM(Salary) AS TOTAL_SAL FROM Employees 
-GROUP BY Department HAVING TOTAL_SAL > 200000;
+Q5. Display all orders placed between '2026-01-01' and '2026-12-31'.
 
--- Q5. Find the maximum and minimum salary in each department.
-
-SELECT Department , MAX(Salary) AS MAX_SAL , MIN(Salary) AS MIN_SAL FROM Employees
-GROUP BY Department;
-
--- Q6. Count the number of employees in each department whose salary is greater than 50000.
-
-SELECT Department , COUNT(*) AS CNE FROM Employees 
-WHERE Salary > 50000 GROUP BY Department;
-
--- Q7. Display the total sales amount for each category from the Orders table using SUM(Quantity * Price).
-
-SELECT Category ,SUM(Quantity*Price) AS total_sales FROM orders 
-GROUP BY Category;
-
--- Q8. Display categories where the total sales amount is greater than 50000 using HAVING.
-
-SELECT Category , SUM(Quantity*Price) AS Total_sales FROM orders
-GROUP BY Category HAVING Total_sales > 50000;
-
--- Q9. Display the top 5 departments with the highest total salary.
-
-SELECT Department , SUM(Salary) AS total_sal FROM Employees
-GROUP BY Department ORDER BY total_sal DESC LIMIT 5;
-
--- Q10. Find the average, maximum, minimum, and total salary for all employees in a single query.
-
-SELECT AVG(Salary) AS Average_sal ,MAX(Salary) AS Maximum_sal ,MIN(Salary) AS Minimum_sal ,SUM(Salary) AS total_sal FROM Employees;
+SELECT * FROM Orders1 
+WHERE  OrderDate BETWEEN '2026-01-01' and '2026-12-31';
 
 
+
+Q6. Find the total number of orders in each Category.
+
+SELECT Category,COUNT(*) FROM Orders1 GROUP BY Category;
+
+Q7. Find the total sales (SUM of Quantity × Price) for each Category.
+
+SELECT Category,SUM(Quantity * Price) FROM Orders1 GROUP BY Category;
+
+Q8. Display the Category names where the average Price is greater than 1500.
+
+SELECT Category ,AVG(Price) AS AVG_price FROM Orders1 GROUP BY Category HAVING AVG_price > 1500; 
+
+Q9. Display Categories in descending order based on total sales.
+
+SELECT Category , SUM(Quantity * Price) AS total_sales FROM Orders1 GROUP BY Category ORDER BY total_sales DESC ; 
+
+Q10. Display the top 3 highest-value orders based on Quantity × Price.
+
+SELECT Quantity * Price AS highest_value FROM Orders1 ORDER BY highest_value DESC LIMIT 3;
 
 
 
