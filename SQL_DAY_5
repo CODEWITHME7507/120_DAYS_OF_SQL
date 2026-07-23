@@ -1,0 +1,115 @@
+-- Day 5 - SQL Practice Questions (Intermediate)
+
+-- Q1. Create two tables: Customers and Orders1 with a common CustomerID column.
+
+CREATE TABLE Customers (
+CustomerID INTEGER PRIMARY KEY,
+CustomerName VARCHAR(30) NOT NULL,
+Customer_Age INTEGER NOT NULL,
+Customer_gender VARCHAR(30) NOT NULL) ;
+
+CREATE TABLE Orders1 (
+CustomerID INTEGER NOT NULL,
+Order_ID INTEGER PRIMARY KEY,
+Order_type VARCHAR(30) NOT NULL,
+Order_price INTEGER NOT NULL,
+Order_quantity INTEGER NOT NULL,
+Order_location VARCHAR(30) NOT NULL) ;
+
+-- Q2. Insert at least 10 records into the Customers table and 20 records into the Orders table.
+
+INSERT INTO Customers (CustomerID, CustomerName, Customer_Age, Customer_gender) VALUES
+(1, 'Amit Sharma', 25, 'Male'),
+(2, 'Priya Patil', 22, 'Female'),
+(3, 'Rahul Verma', 30, 'Male'),
+(4, 'Sneha Joshi', 27, 'Female'),
+(5, 'Rohan Kulkarni', 35, 'Male'),
+(6, 'Pooja Singh', 24, 'Female'),
+(7, 'Karan Mehta', 29, 'Male'),
+(8, 'Neha Gupta', 26, 'Female'),
+(9, 'Vikram Deshmukh', 32, 'Male'),
+(10, 'Anjali More', 28, 'Female'),
+(11, 'Suresh Yadav', 40, 'Male'),
+(12, 'Kavita Shah', 31, 'Female'),
+(13, 'Arjun Nair', 23, 'Male'),
+(14, 'Meera Iyer', 34, 'Female'),
+(15, 'Nikhil Jain', 27, 'Male'),
+(16, 'Ritika Kapoor', 29, 'Female'),
+(17, 'Aditya Rao', 36, 'Male'),
+(18, 'Simran Kaur', 25, 'Female'),
+(19, 'Manish Gupta', 33, 'Male'),
+(20, 'Ayesha Khan', 28, 'Female') ;
+
+INSERT INTO Orders1 (CustomerID, Order_ID, Order_type, Order_price, Order_quantity, Order_location) VALUES
+(1, 101, 'Laptop', 65000, 1, 'Mumbai'),
+(2, 102, 'Mobile', 25000, 2, 'Pune'),
+(3, 103, 'Headphones', 3000, 3, 'Nagpur'),
+(4, 104, 'Keyboard', 1500, 2, 'Nashik'),
+(5, 105, 'Monitor', 12000, 1, 'Aurangabad'),
+(6, 106, 'Mouse', 800, 4, 'Thane'),
+(7, 107, 'Printer', 10000, 1, 'Kolhapur'),
+(8, 108, 'Tablet', 18000, 2, 'Solapur'),
+(9, 109, 'Camera', 35000, 1, 'Satara'),
+(10, 110, 'Speaker', 5000, 2, 'Amravati'),
+(11, 111, 'Smartwatch', 7000, 1, 'Mumbai'),
+(12, 112, 'Power Bank', 2000, 3, 'Pune'),
+(13, 113, 'SSD', 4500, 2, 'Nagpur'),
+(14, 114, 'Webcam', 2500, 1, 'Nashik'),
+(15, 115, 'Charger', 1200, 5, 'Aurangabad'),
+(16, 116, 'Router', 3500, 1, 'Thane'),
+(17, 117, 'Pendrive', 900, 6, 'Kolhapur'),
+(18, 118, 'Microphone', 2800, 2, 'Solapur'),
+(19, 119, 'Projector', 42000, 1, 'Satara'),
+(20, 120, 'UPS', 6000, 1, 'Amravati') ;
+
+
+-- Q3. Display all customer names along with their order details using INNER JOIN.
+
+SELECT Custom.CustomerName , ord.* FROM Customers AS Custom
+INNER JOIN Orders1 AS ord 
+ON Custom.CustomerID = ord.CustomerID ;
+
+-- Q4. Display all customers, including those who have not placed any orders, using LEFT JOIN.
+
+SELECT C.* , O.* FROM Customers AS C
+LEFT JOIN Orders1 AS O
+ON C.CustomerID = O.CustomerID ;
+
+-- Q5. Display all orders, including those that do not have a matching customer, using RIGHT JOIN (or an equivalent approach if your SQL database does not support RIGHT JOIN).
+
+SELECT C.* , O.* FROM Customers AS C
+RIGHT JOIN Orders1 AS O 
+ON C.CustomerID = O.CustomerID ;
+
+-- Q6. Display all customers and all orders using FULL OUTER JOIN (or simulate it if your SQL database does not support it).
+
+SELECT C.* , O.* FROM Customers AS C
+JOIN Orders1 AS O
+ON C.CustomerId = O.CustomerID ; 
+
+-- Q7. Display the names of customers who have placed more than one order.
+
+SELECT CustomerName FROM Customers
+WHERE CustomerID IN (SELECT CustomerID FROM Orders1
+GROUP BY CustomerID HAVING COUNT(CustomerID) >= 2);
+
+-- Q8. Find the total amount spent by each customer using SUM() and GROUP BY.
+
+SELECT Cust.CustomerName,SUM(O.Order_price * O.Order_quantity) FROM Customers AS Cust
+JOIN Orders1 AS O
+ON Cust.CustomerID = O.CustomerID 
+GROUP BY O.CustomerID ;
+
+-- Q9. Display the top 5 customers based on the total amount they have spent.
+
+SELECT Cust.CustomerName,SUM(O.Order_price * O.Order_quantity) AS total_amount FROM Customers AS Cust
+JOIN Orders1 AS O
+ON Cust.CustomerID = O.CustomerID 
+GROUP BY O.CustomerID 
+ORDER BY total_amount DESC LIMIT 5 ;
+
+-- Q10. Display the customer name, order ID, product name, quantity, price, and total amount (Quantity × Price) using a JOIN.
+
+SELECT Cust.CustomerName,O.*,O.Order_price * O.Order_quantity AS total_amount FROM Customers AS Cust
+JOIN Orders1 AS O
+ON Cust.CustomerID = O.CustomerID ;
