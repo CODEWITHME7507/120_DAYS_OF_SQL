@@ -1,0 +1,52 @@
+-- Day 6 - SQL Practice Questions (Intermediate → Advanced)
+
+-- Q1. Display the names of customers who have placed at least one order using a subquery.
+
+SELECT * FROM Customers 
+WHERE CustomerID IN (SELECT CustomerID FROM Orders1);
+
+-- Q2. Display the names of customers who have never placed any orders using a subquery.
+
+SELECT * FROM Customers 
+WHERE CustomerID NOT IN (SELECT CustomerID FROM Orders1);
+
+-- Q3. Find the product with the highest price using a subquery.
+
+SELECT Order_type , SUM(Order_price * Order_quantity) AS Total FROM Orders1
+GROUP BY Order_type HAVING Total = (SELECT SUM(Order_price * Order_quantity) AS Total FROM Orders1
+GROUP BY Order_type ORDER BY Total DESC LIMIT 1) ;
+
+-- Q4. Display all orders whose total amount (Quantity × Price) is greater than the average order amount.
+
+SELECT *,Order_price * Order_quantity AS Total_amount FROM Orders1 
+WHERE Order_price * Order_quantity > (SELECT AVG(Order_price*Order_quantity) FROM Orders1); 
+
+-- Q5. Display employees whose salary is greater than the average salary of all employees.
+
+SELECT * FROM Employees 
+WHERE Salary > (SELECT AVG(Salary) FROM Employees);
+
+-- Q6. Find the second highest salary from the Employees table.
+
+SELECT EmpName , Salary FROM Employees 
+ORDER BY Salary DESC  LIMIT 1 OFFSET 1; 
+
+-- Q7. Display all products that belong to the same category as the product named 'Laptop' using a subquery.
+
+SELECT * FROM Orders 
+WHERE Category = (SELECT Category FROM Orders WHERE ProductName = 'Laptop');
+
+-- Q8. Find customers whose total purchase amount is greater than the average purchase amount of all customers.
+
+SELECT * , (Price * Quantity) AS Total_purchase FROM Orders
+WHERE  (Price * Quantity) > (SELECT AVG(Price * Quantity) FROM Orders);
+
+-- Q9. Display the details of the customer who placed the most expensive order.
+
+SELECT * FROM Orders 
+WHERE (Price * Quantity) = (SELECT MAX(Price * Quantity) FROM Orders);
+
+-- Q10. Display all employees who earn the highest salary in their respective departments.
+
+SELECT * FROM Employees AS E 
+WHERE Salary > (SELECT SUM(Salary) FROM Employees AS EM WHERE EM.Department = E.Department);
