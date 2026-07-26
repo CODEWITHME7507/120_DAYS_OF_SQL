@@ -1,0 +1,51 @@
+-- Day 7 - SQL Practice Questions (Intermediate)
+
+-- Q1. Display all employees whose salary is greater than 50000 and whose age is less than 35.
+
+SELECT * FROM Employees 
+WHERE Salary > 50000 AND Age < 35;
+
+-- Q2. Display employees whose department is either 'IT', 'HR', or 'Finance'.
+
+SELECT * FROM Employees 
+WHERE Department IN ('IT', 'HR','Finance');
+
+-- Q3. Display employees whose name contains the letter 'a'.
+
+SELECT * FROM Employees
+WHERE Empname LIKE 'a%';
+
+-- Q4. Display employees whose salary is between 40000 and 80000.
+
+SELECT * FROM Employees
+WHERE Salary BETWEEN 40000 AND 80000;
+
+-- Q5. Display the first 5 records from the Employees table.
+
+SELECT * FROM Employees
+ORDER BY EmpID ASC LIMIT 5;
+
+-- Q6. Display employees sorted by Department (A-Z) and Salary (Highest to Lowest).
+
+SELECT * FROM Employees 
+ORDER BY Department ASC, Salary DESC ;
+
+-- Q7. Find the total number of employees in each department.
+
+SELECT Department,COUNT(*) FROM Employees
+GROUP BY Department;
+
+-- Q8. Find the average salary of employees in each department.
+
+SELECT Department,AVG(Salary) FROM employees
+GROUP BY Department; 
+
+-- Q9. Display only those departments having more than 3 employees using HAVING.
+
+SELECT Department , COUNT(*) AS TOTAL_EMP FROM Employees 
+GROUP BY Department HAVING TOTAL_EMP > 3;
+
+-- Q10. Find the total salary paid to each department and display the departments in descending order of total salary.
+
+SELECT Department , SUM(Salary) AS TOTAL_SAL FROM Employees
+GROUP BY Department ORDER BY TOTAL_SAL DESC;
