@@ -1,0 +1,65 @@
+-- ==========================================
+-- Day 8 Practice Questions
+-- Topic: Aliases (AS), Comments & Arithmetic Expressions
+-- ==========================================
+
+-- Q1
+-- Display ProductName with the alias "Product".
+
+SELECT ProductName AS Product FROM Orders;
+
+-- Q2
+-- Display Price with the alias "ProductPrice".
+
+SELECT Price AS ProductPrice FROM Orders;
+
+-- Q3
+-- Display CustomerName as "Customer" and Category as "Type".
+
+SELECT CustomerName AS Customer , Category AS Type FROM Orders;
+
+-- Q4
+-- Display ProductName and calculate Price + 100 as "NewPrice".
+
+SELECT ProductName , Price + 100 AS NewPrice FROM Orders;
+
+-- Q5
+-- Display ProductName and calculate Price * Quantity as "TotalAmount".
+
+SELECT ProductName , Price * Quantity AS TotalAmount FROM Orders;
+
+-- Q6
+-- Display all columns from the orders table using the table alias "ord".
+
+SELECT * FROM Orders AS ord;
+
+-- Q7
+-- Display CustomerName and ProductName from the Orders table using the table alias "NewOrders".
+
+SELECT CustomerName ,ProductName FROM Orders AS NewOrders;
+
+-- Q8
+-- Write a query that contains both:
+-- Single-line comments
+-- Multi-line comments
+-- Then display all records from the Employees table.
+
+-- This is employees Table
+/*display all the
+records in table */
+
+SELECT * FROM Employees;
+
+
+-- Q9
+-- Display EmployeeName and calculate Salary + Bonus as "TotalSalary".
+
+SELECT EmpName , Salary + 10000 AS Total_sal FROM Employees;
+
+-- Q10
+-- Display ProductName, Price, Quantity, and calculate:
+-- DiscountedPrice = Price - 50
+-- TotalValue = Price * Quantity
+-- Use meaningful aliases for all calculated columns.
+
+SELECT ProductName,Price,Quantity,Price - 50 AS DiscountedPrice , Price - 50 * Quantity AS Total_price FROM Orders;
