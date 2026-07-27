@@ -1,0 +1,64 @@
+-- ==========================================
+-- Day 9 Practice Questions
+-- Topic: Comparison Operators (=, !=, <>, >, <, >=, <=)
+-- ==========================================
+
+-- Q1
+-- Display all customers whose City is 'Mumbai'.
+
+SELECT * FROM Orders1 
+WHERE Order_location = 'Mumbai';
+
+-- Q2
+-- Display all products whose Price is greater than 5000.
+
+SELECT * FROM Orders1 
+WHERE Order_price > 5000;
+
+-- Q3
+-- Display all employees whose Salary is less than 30000.
+
+SELECT * FROM Employees 
+WHERE Salary < 30000;
+
+-- Q4
+-- Display all products whose Quantity is greater than or equal to 50.
+
+SELECT * FROM Orders
+WHERE Quantity >= 50;
+
+-- Q5
+-- Display all customers whose Age is less than or equal to 25.
+
+SELECT * FROM Customers
+WHERE Customer_Age <= 25;
+
+-- Q6
+-- Display all employees whose Department is not 'HR' using the != operator.
+
+SELECT * FROM Employees 
+WHERE Department != 'HR';
+
+-- Q7
+-- Display all products whose Category is not 'Electronics' using the <> operator.
+
+SELECT * FROM Orders
+WHERE Category <> 'Electronics';
+
+-- Q8
+-- Display all orders where TotalAmount is greater than 1000.
+
+SELECT * FROM Orders
+WHERE Price > 1000;
+
+-- Q9
+-- Display all employees whose Experiance is greater than 5 years.
+
+SELECT * FROM Employees 
+WHERE Experiance > 5;
+
+-- Q10
+-- Display all products whose Price is greater than 200 and less than 1000 using comparison operators.
+
+SELECT * FROM Orders
+WHERE Price > 200 and Price < 1000;
