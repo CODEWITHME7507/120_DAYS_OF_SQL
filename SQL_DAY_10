@@ -1,0 +1,64 @@
+-- ==========================================
+-- Day 10 Practice Questions
+-- Topic: Logical Operators (AND, OR, NOT)
+-- ==========================================
+
+-- Q1
+-- Display all Employees who live in 'Mumbai' AND are older than 25.
+
+SELECT * FROM Employees
+WHERE Emp_location = 'Mumbai' AND Age > 25;
+
+-- Q2
+-- Display all products whose Price is greater than 500 AND Quantity is greater than 20.
+
+SELECT * FROM Orders
+WHERE Price > 500 AND Quantity > 20;
+
+-- Q3
+-- Display all employees who work in the 'Sales' OR 'Marketing' department.
+
+SELECT * FROM Employees
+WHERE Department = 'Sales' OR Department = 'Marketing';
+
+-- Q4
+-- Display all Employees who live in 'Pune' OR 'Mumbai'.
+
+SELECT * FROM Employees
+WHERE Emp_location = 'Pune' OR Emp_location = 'Mumbai';
+
+-- Q5
+-- Display all products whose Category is 'Electronics' AND Price is less than 1000.
+
+SELECT * FROM Orders 
+WHERE Category = 'Electronics' AND Price < 1000;
+
+-- Q6
+-- Display all employees who are NOT in the 'HR' department.
+
+SELECT * FROM Employees
+WHERE NOT Department = 'HR';
+
+-- Q7
+-- Display all orders where TotalAmount is greater than 1000 AND Order is 'Electronic'.
+
+SELECT * FROM Orders 
+WHERE Price* Quantity > 1000 AND Category = 'Electronic';
+
+-- Q8
+-- Display all Employees who are NOT from 'Delhi'.
+
+SELECT * FROM Employees
+WHERE NOT Emp_location = 'Delhi';
+
+-- Q9
+-- Display all employees whose Salary is greater than 30000 OR Experience is greater than 5 years.
+
+SELECT * FROM Employees 
+WHERE Salary > 30000 OR Experiance > 5;
+
+-- Q10
+-- Display all products whose Price is between 500 and 2000 AND Quantity is greater than 10 OR Category is 'Accessories'.
+
+SELECT * FROM Orders 
+WHERE Price BETWEEN 500 AND 2000 AND Quantity > 10 OR Category = 'Accessories';
