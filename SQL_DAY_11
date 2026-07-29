@@ -1,0 +1,65 @@
+-- ==========================================
+-- Day 11 Practice Questions
+-- Topic: IN & NOT IN Operators
+-- ==========================================
+
+-- Q1
+-- Display all Employees who live in 'Mumbai', 'Pune', or 'Delhi' using the IN operator.
+
+SELECT * FROM Employees 
+WHERE Emp_location IN ('Mumbai', 'Pune','Delhi');
+
+-- Q2
+-- Display all employees who work in the 'Sales', 'Marketing', or 'HR' departments using the IN operator.
+
+SELECT * FROM Employees
+WHERE Department IN ('Sales', 'Marketing','HR');
+
+-- Q3
+-- Display all products whose Category is 'Electronics' or 'Accessories' using the IN operator.
+
+SELECT * FROM Orders 
+WHERE Category IN ('Electronics','Accessories');
+
+-- Q4
+-- Display all Employees whose Age is 20, 25, or 30 using the IN operator.
+
+SELECT * FROM Employees
+WHERE Age IN ( 20, 25,30 );
+
+-- Q5
+-- Display all orders whose OrderStatus is 'Pending' or 'Shipped' using the IN operator.
+
+SELECT * FROM Orders
+WHERE OrderStatus IN ('Pending','Shipped');
+
+
+-- Q6
+-- Display all Employees who do NOT live in 'Mumbai' or 'Pune' using the NOT IN operator.
+
+SELECT * FROM Employees
+WHERE NOT Emp_location IN ('Mumbai','Pune');
+
+-- Q7
+-- Display all employees who are NOT in the 'HR' or 'Finance' departments using the NOT IN operator.
+
+SELECT * FROM Employees
+WHERE NOT Department IN ('HR','Finance');
+
+-- Q8
+-- Display all products whose Category is NOT 'Furniture' or 'Clothing' using the NOT IN operator.
+
+SELECT * FROM Orders
+WHERE NOT Category IN ('Furniture','Clothing' );
+
+-- Q9
+-- Display all orders whose PaymentMethod is NOT 'Cash' or 'UPI' using the NOT IN operator.
+
+SELECT * FROM Orders 
+WHERE NOT PaymentMethod IN ('Cash','UPI') ;
+
+-- Q10
+-- Display all employees whose Department is in ('Sales', 'Marketing') AND Salary is greater than 50000.
+
+SELECT * FROM Employees 
+WHERE Department IN  ('Sales', 'Marketing') AND Salary > 50000;
