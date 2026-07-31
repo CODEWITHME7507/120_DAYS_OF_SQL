@@ -1,0 +1,65 @@
+-- ==========================================
+-- Day 13 Practice Questions
+-- Topic: LIKE Operator
+-- ==========================================
+
+-- Q1
+-- Display all customers whose CustomerName starts with 'A'.
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'A%';
+
+-- Q2
+-- Display all employees whose EmployeeName ends with 'n'.
+
+SELECT * FROM Employees
+WHERE EmpName LIKE '%n';
+
+-- Q3
+-- Display all products whose ProductName contains 'phone'.
+
+SELECT * FROM Orders
+WHERE ProductName LIKE '%phone%';
+
+-- Q4
+-- Display all Employees whose City starts with 'M'.
+
+SELECT * FROM Employees
+WHERE Emp_location LIKE 'M%';
+
+-- Q5
+-- Display all employees whose department contains 's'.
+
+SELECT * FROM Employees
+WHERE Department LIKE '%s%';
+
+-- Q6
+-- Display all products whose ProductName starts with 'S' and ends with 'g'.
+
+SELECT * FROM Orders 
+WHERE ProductName LIKE 'S%';
+
+-- Q7
+-- Display all customers whose CustomerName does NOT start with 'R'.
+
+SELECT * FROM Customers 
+WHERE CustomerName NOT LIKE 'R%';
+
+-- Q8
+-- Display all employees whose EmployeeName has 'a' as the second character.
+
+SELECT * FROM Employees 
+WHERE EmpName LIKE '_a%';
+
+-- Q9
+-- Display all products whose ProductName contains the word 'Pro'.
+
+SELECT * FROM Orders 
+WHERE ProductName LIKE '%Pro%';
+
+-- Q10
+-- Display all customers whose CustomerName starts with 'S'
+-- AND productname ends with 'i'.
+
+SELECT * FROM orders
+WHERE CustomerName LIKE 'S%' AND ProductName LIKE '%i';
