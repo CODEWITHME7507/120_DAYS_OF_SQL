@@ -1,0 +1,65 @@
+-- ==========================================
+-- Day 14 Practice Questions
+-- Topic: Wildcards in LIKE Operator (%, _)
+-- ==========================================
+
+-- Q1
+-- Display all customers whose CustomerName starts with 'A' using the % wildcard.
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'A%';
+
+-- Q2
+-- Display all employees whose EmployeeName ends with 'n' using the % wildcard.
+
+SELECT * FROM Employees 
+WHERE EmpName LIKE '%n';
+
+-- Q3
+-- Display all products whose ProductName contains 'phone' using the % wildcard.
+
+SELECT * FROM Orders
+WHERE ProductName LIKE '%phone%';
+
+-- Q4
+-- Display all customers whose Name has exactly 5 characters using the _ wildcard.
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '_____';
+
+-- Q5
+-- Display all employees whose EmployeeName starts with 'S' and has exactly 6 characters.
+
+SELECT * FROM Employees 
+WHERE EmpName LIKE 'S_____';
+
+-- Q6
+-- Display all products whose ProductName has 'a' as the second character.
+
+SELECT * FROM Orders
+WHERE ProductName LIKE '_a%';
+
+-- Q7
+-- Display all customers whose CustomerName ends with 'a' and contains at least 4 characters.
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '%___a';
+
+-- Q8
+-- Display all employees whose Name starts with 'A' and ends with 'a'.
+
+SELECT * FROM Employees
+WHERE EmpName LIKE 'A%%a';
+
+-- Q9
+-- Display all products whose ProductName starts with 'M' and ends with 'e'.
+
+SELECT * FROM Orders
+WHERE ProductName LIKE 'M%%e';
+
+-- Q10
+-- Display all customers whose CustomerName starts with 'R'
+-- AND age is  exactly 35.
+
+SELECT * FROM Customers 
+WHERE CustomerName LIKE 'R%' AND Customer_Age = 35;
