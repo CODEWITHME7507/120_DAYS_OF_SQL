@@ -1,0 +1,69 @@
+-- ==========================================
+-- Day 15 Practice Questions
+-- Topic: IS NULL & IS NOT NULL
+-- ==========================================
+
+-- Q1
+-- Display all customers whose CustomerName is NULL.
+
+SELECT * FROM Customers
+WHERE CustomerName IS NULL ;
+
+-- Q2
+-- Display all employees whose Department  is NOT NULL.
+
+SELECT * FROM Employees 
+WHERE Department IS NOT NULL;
+
+-- Q3
+-- Display all products whose Orderstatus is NULL.
+
+SELECT * FROM Orders
+WHERE Orderstatus IS NULL;
+
+-- Q4
+-- Display all orders whose DeliveryDate is NULL.
+
+SELECT * FROM Orders 
+WHERE OrderDate IS NULL;
+
+-- Q5
+-- Display all customers whose Age is NOT NULL.
+
+SELECT * FROM Customers
+WHERE Age IS NOT NULL;
+
+-- Q6
+-- Display all employees whose EmpID is NULL.
+
+SELECT * FROM Employees 
+WHERE EmpID IS NULL;
+
+-- Q7
+-- Display all products whose Payment Method is NOT NULL.
+
+SELECT * FROM Orders 
+WHERE PaymentMethod IS NOT NULL;
+
+-- Q8
+-- Display all orders whose Price is NOT NULL.
+
+SELECT * FROM Orders
+WHERE Price IS NOT NULL;
+
+-- Q9
+-- Display all customers whose Customer_gender is NOT NULL
+-- AND Customer_Age is NULL.
+
+SELECT * FROM Customers 
+WHERE Customer_gender IS NOT NULL AND Customer_Age IS NULL;
+
+-- Q10
+-- Display all employees whose Department is NOT NULL
+-- AND Emp_location is NOT NULL
+-- AND Experiance is NULL.
+
+SELECT * FROM Employees
+WHERE Department IS NOT NULL
+AND Emp_location IS NOT NULL
+AND Experiance IS NULL;
