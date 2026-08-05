@@ -1,0 +1,123 @@
+-- ==========================================
+-- Day 16 Practice Questions
+-- Topic: CASE Statement
+-- ==========================================
+
+-- Q1
+-- Display ProductName, Price, and create a column named PriceCategory:
+-- If Price > 1000 then 'Expensive', otherwise 'Affordable'.
+
+SELECT ProductName , Price ,
+CASE 
+   WHEN Price > 1000 THEN 'Expensive'
+   WHEN Price < 1000 THEN 'Affordable'
+   END AS Pricecategory
+FROM Orders;   
+
+-- Q2
+-- Display EmployeeName, Salary, and create a column named SalaryGrade:
+-- If Salary >= 50000 then 'High', otherwise 'Low'.
+
+SELECT EmpName , Salary ,
+CASE
+   WHEN Salary >= 50000 THEN 'High' 
+   WHEN Salary < 50000 THEN 'Low'
+   END AS SalaryGrade
+FROM Employees;   
+   
+
+-- Q3
+-- Display StudentName, Marks, and create a column named Result:
+-- If Marks >= 40 then 'Pass', otherwise 'Fail'.
+
+SELECT StudentName,Marks,
+CASE 
+  WHEN Marks >= 40 THEN "Pass"
+  WHEN Marks < 40 THEN "Fail"
+  END AS Result
+FROM Students;  
+
+-- Q4
+-- Display CustomerName and TotalPurchase.
+-- Create a column named CustomerType:
+-- If TotalPurchase >= 10000 then 'Premium', otherwise 'Regular'.
+
+SELECT CustomerName , Price * Quantity AS TotalPurchase,
+CASE
+   WHEN Price * Quantity >= 10000 THEN 'Premium'
+   WHEN Price * Quantity < 10000 THEN "Regular"
+   END AS CustomerType
+FROM Orders;   
+   
+-- Q5
+-- Display OrderID, TotalAmount, and create a column named OrderCategory:
+-- If TotalAmount >= 5000 then 'Large Order', otherwise 'Small Order'.
+
+SELECT OrderID , Price * Quantity AS TotalAmount,
+CASE 
+   WHEN Price * Quantity >= 5000 THEN 'Large Order'
+   WHEN Price * Quantity < 5000 THEN 'Small Order'
+   END AS OrderCategory
+FROM Orders;   
+   
+-- Q6
+-- Display EmployeeName, Experience, and create a column named ExperienceLevel:
+-- If Experience >= 5 then 'Experienced', otherwise 'Fresher'.
+
+SELECT EmpName , Experiance ,
+CASE
+   WHEN Experiance >= 5 THEN "Experienced"
+   WHEN Experiance < 5 THEN "Fresher"
+   END AS ExperienceLevel
+FROM Employees;   
+
+-- Q7
+-- Display ProductName, Quantity, and create a column named StockStatus:
+-- If Quantity = 0 then 'Out of Stock', otherwise 'In Stock'.
+
+SELECT ProductName , Quantity ,
+CASE 
+   WHEN Quantity = 0 THEN 'Out of Stock'
+   WHEN Quantity >= 1 THEN 'In Stock'
+   END AS StockStatus
+FROM Orders;   
+
+
+-- Q8
+-- Display CustomerName, Age, and create a column named AgeGroup:
+-- If Age >= 18 then 'Adult', otherwise 'Minor'.
+
+SELECT CustomerName , Customer_Age ,
+CASE 
+   WHEN Customer_Age >= 18 THEN 'Adult'
+   WHEN Customer_Age < 18 THEN "Minor"
+   END AS AgeGroup
+FROM Customers;   
+
+-- Q9
+-- Display EmployeeName, Department, and create a column named WorkMode:
+-- If Department = 'IT' then 'Technical', otherwise 'Non-Technical'.
+
+SELECT EmpName , Department ,
+CASE 
+  WHEN Department = 'IT' THEN 'Technical'
+  WHEN Department != 'IT' THEN 'Non - Technical'
+  END AS WorkMode
+FROM Employees ; 
+  
+
+-- Q10
+-- Display StudentName, Marks, and create a column named Grade:
+-- If Marks >= 80 then 'A'
+-- Else if Marks >= 60 then 'B'
+-- Else if Marks >= 40 then 'C'
+-- Else 'Fail'.
+SELECT StudentName, Marks,
+CASE
+   WHEN Marks >= 80 THEN 'A'
+   WHEN Marks >= 60 THEN 'B'
+   WHEN Marks >= 40 THEN 'C'
+   WHEN Marks < 40 THEN 'Fail'
+   END AS Grade
+FROM Students ;   
+   
