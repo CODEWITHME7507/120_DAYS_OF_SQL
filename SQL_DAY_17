@@ -1,0 +1,87 @@
+-- ==========================================
+-- Day 17 Practice Questions
+-- Topic: COALESCE() Function
+-- ==========================================
+
+-- Q1
+-- Display CustomerName and PhoneNumber.
+-- If PhoneNumber is NULL, display 'Not Available' instead.
+
+SELECT CustomerName , 
+     COALESCE(CustomerNumber,"Not Available") AS mobile_number
+FROM Customers;     
+
+-- Q2
+-- Display EmployeeName and location.
+-- If location is NULL, display 'No location'.
+
+SELECT EmpName,
+    coalesce(Emp_location,"No location") AS Location
+FROM Employees;    
+
+-- Q3
+-- Display ProductName and Quantity.
+-- If Quantity is NULL, display 0.
+
+SELECT ProductName ,
+    COALESCE(Quantity,0) AS Quantity
+FROM Orders;    
+
+-- Q4
+-- Display OrderID and DeliveryDate.
+-- If DeliveryDate is NULL, display 'Pending'.
+
+SELECT OrderID ,
+    COALESCE(OrderDate,'Pending') as Order_Date
+FROM Orders;  
+
+-- Q5
+-- Display StudentName and marks.
+-- If marks is NULL, display 'No Remarks'.
+
+SELECT StudentName,
+    COALESCE(Marks,'No Remarks') AS Remarks
+FROM Students;
+
+-- Q6
+-- Display EmployeeName, Bonus, and Salary.
+-- If Bonus is NULL, treat it as 0 and display TotalSalary = Salary + Bonus.
+
+SELECT EmpName,
+Salary + COALESCE(Bonus,0) AS TotalSalary
+FROM Employees;
+
+-- Q7
+-- Display CustomerName and Address.
+-- If Address is NULL, display 'Address Not Provided'.
+
+SELECT CustomerName ,
+    COALESCE(Address,'Address Not Provided') AS ADDRESS
+FROM Customers;
+    
+-- Q8
+-- Display ProductName and Description.
+-- If Description is NULL, display 'No Description'.
+
+SELECT ProductName,
+     COALESCE(Descriptions,'No Description') AS Descriptiojn
+FROM Orders;
+
+-- Q9
+-- Display EmployeeName, Commission, and Salary.
+-- Calculate NetSalary = Salary + Commission.
+-- If Commission is NULL, treat it as 0.
+
+SELECT EmpName ,
+   Salary + COALESCE(Commission,0) AS NetSalary
+FROM Employees;   
+   
+-- Q10
+-- Display CustomerName, City, and Country.
+-- If City is NULL, display Country instead.
+-- If both City and Country are NULL, display 'Unknown Location'.
+
+SELECT CustomerName ,
+  COALESCE(City,Country,'Unknown location')
+FROM Customers;  
+  
