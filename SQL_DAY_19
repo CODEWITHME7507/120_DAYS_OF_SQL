@@ -1,0 +1,72 @@
+-- ==========================================
+-- Day 19 Practice Questions
+-- Topic: Numeric Functions
+-- ==========================================
+
+-- Q1
+-- Display ProductName and Price rounded to the nearest whole number
+-- using ROUND().
+
+SELECT ProductName,ROUND(Price * Quantity + 0.5,-1) AS Totalamount FROM Orders;
+
+-- Q2
+-- Display EmployeeName and Salary rounded to the nearest thousand
+-- using ROUND().
+
+SELECT EmpName,Salary,ROUND(Salary,-3) AS Salary_rounded FROM Employees;
+
+-- Q3
+-- Display ProductName and the absolute value of Discount
+-- using ABS().
+
+SELECT ProductName,Discount,ABS(Discount) AS Absolute_value FROM Orders;
+
+-- Q4
+-- Display OrderID and TotalAmount rounded to 2 decimal places
+-- using ROUND().
+
+SELECT OrderID , ROUND(Price * Quantity + 1.25) AS TotalAmount FROM Orders;
+
+-- Q5
+-- Display ProductName, Price, and the value of Price rounded UP
+-- using CEIL() / CEILING().
+
+SELECT ProductName,CEIL(Price + 0.5) FROM Orders;
+
+-- Q6
+-- Display ProductName, Price, and the value of Price rounded DOWN
+-- using FLOOR().
+
+SELECT ProductName , FLOOR(Price + 0.7) AS UP ,CEIL(Price + 0.5) AS DOWN FROM Orders;
+
+-- Q7
+-- Display EmployeeName and calculate the remainder when Salary
+-- is divided by 1000 using MOD().
+
+SELECT EmpName , MOD(Salary,1000) AS Remainder_mod FROM Employees;
+
+-- Q8
+-- Display OrderID and calculate the remainder when TotalAmount
+-- is divided by 100 using MOD().
+
+SELECT OrderID, MOD (Price*Quantity,100) AS Mod_divided FROM Orders;
+
+-- Q9
+-- Display ProductName and calculate:
+-- RoundedPrice = ROUND(Price, 2)
+-- RoundedUpPrice = CEIL(Price)
+-- RoundedDownPrice = FLOOR(Price)
+
+SELECT ProductName, ROUND(Price,2) round_by2, CEIL(Price) AS Ceil_price, FLOOR(Price) AS FloorPrice FROM Orders;
+
+-- Q10
+-- Display EmployeeName, Salary, and create a column named SalaryCategory:
+-- If Salary >= 50000, round Salary to the nearest 1000.
+-- Otherwise, round Salary to the nearest 100.
+
+SELECT EmpName, Salary , 
+  CASE 
+      WHEN Salary >= 50000 THEN (ROUND(Salary,-3))
+      ELSE ROUND(Salary,-2) 
+  END AS salaryCategory
+FROM Employees;  
