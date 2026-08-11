@@ -1,0 +1,85 @@
+-- ==========================================
+-- Day 20 Practice Questions
+-- Topic: Built-in Functions – Combined Practice
+-- ==========================================
+
+-- Q1
+-- Display CustomerName in uppercase and City in lowercase.
+
+SELECT UPPER(CustomerName) AS CustomerUpperCase , LOWER(City) FROM Customers; 
+
+-- Q2
+-- Display ProductName and its length using LENGTH().
+-- Sort the result by the length of ProductName in descending order.
+
+SELECT ProductName,LENGTH(ProductName) AS length_pr FROM Orders ORDER BY length_pr DESC; 
+
+-- Q3
+-- Display EmployeeName and Salary.
+-- If Salary is NULL, display 0 using COALESCE().
+
+SELECT EmpName ,COALESCE(Salary,0) AS Salarys
+FROM Employees;      
+   
+
+-- Q4
+-- Display ProductName and Price rounded to 2 decimal places.
+-- Also display the rounded-up and rounded-down Price.
+
+
+SELECT ProductName , ROUND(Price+1.25,-1) AS Rounded , CEILING(Price) AS Rounded_up , FLOOR(Price) AS Rounded_down 
+FROM Orders;     
+
+-- Q5
+-- Display CustomerName and PhoneNumber.
+-- If PhoneNumber is NULL, display 'Not Available'.
+-- Convert the final result to uppercase.
+
+SELECT CustomerName , COALESCE(PhoneNumber,'Not Available') FROM Customers;
+
+-- Q6
+-- Display ProductName and create a new column named PriceStatus:
+-- If Price >= 1000, display 'Expensive'.
+-- Otherwise, display 'Affordable'.
+
+SELECT ProductName , 
+ CASE 
+    WHEN Price >= 1000 THEN 'Expensive'
+    ELSE 'Affordable'
+    END AS Pricestatus
+FROM Orders;    
+
+-- Q7
+-- Display EmployeeName and calculate TotalSalary:
+-- Salary + Bonus.
+-- If Bonus is NULL, treat it as 0.
+
+SELECT EmpName , Salary + COALESCE(Bonus,0) AS Total_Salary FROM Employees;
+
+-- Q8
+-- Display ProductName and replace the word 'Phone' with 'Mobile'
+-- using REPLACE().
+-- Also display the length of the modified product name.
+
+SELECT REPLACE(ProductName,'Phone','Mobile') As Productupd,  length(ProductName) AS LENGTHPRODUCT FROM Orders;
+
+-- Q9
+-- Display CustomerName and City as:
+-- CUSTOMERNAME - CITY
+-- Convert CustomerName to uppercase and City to lowercase.
+
+SELECT UPPER(CustomerName) AS CUSTOMERNAME , LOWER(City) AS CITY FROM Customers; 
+
+-- Q10
+-- Display ProductName, Price, Quantity, and create:
+-- TotalValue = Price * Quantity
+-- RoundedValue = ROUND(Price * Quantity, 2)
+-- StockStatus = 'Out of Stock' if Quantity = 0,
+-- otherwise 'In Stock'.
+
+SELECT ProductName,Price,Quantity,(Price * Quantity) AS TotalValue , ROUND(Price * Quantity,2),
+CASE 
+   WHEN Quantity = 0 THEN 'Out of Stock'
+   ELSE 'In Stock'
+   END AS Stockstatus
+FROM Orders;   
