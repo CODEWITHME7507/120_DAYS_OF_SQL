@@ -1,0 +1,63 @@
+-- ==========================================
+-- Day 21 Practice Questions
+-- Topic: Aggregate Functions (COUNT, SUM, AVG, MIN, MAX)
+-- ==========================================
+
+-- Q1
+-- Count the total number of customers using COUNT().
+
+SELECT COUNT(*)  AS Number_of_customer FROM Customers;
+
+-- Q2
+-- Count the total number of employees in the Employees table.
+
+SELECT COUNT(*) AS Number_of_employees FROM Employees;
+
+-- Q3
+-- Find the total Salary of all employees using SUM().
+
+SELECT SUM(Salary) AS Total_salary FROM Employees;
+
+-- Q4
+-- Find the average Salary of all employees using AVG().
+
+SELECT AVG(Salary) AS Average_salary FROM Employees;
+
+-- Q5
+-- Find the highest Price among all products using MAX().
+
+SELECT MAX(Price * Quantity) AS Highest_salary FROM  Orders;
+
+-- Q6
+-- Find the lowest Price among all products using MIN().
+
+SELECT MIN(Price * Quantity) AS Minimum_salary FROM Orders;
+
+-- Q7
+-- Find the total Quantity of all products using SUM().
+
+SELECT SUM(Quantity) AS Total_quantity FROM Orders;
+
+-- Q8
+-- Find the average OrderAmount from the Orders table.
+
+SELECT AVG(Price * Quantity) AS OrderAmount FROM Orders;
+
+-- Q9
+-- Display the total number of orders, total OrderAmount,
+-- average OrderAmount, highest OrderAmount, and lowest OrderAmount.
+
+SELECT COUNT(*) AS total_number_order , SUM(Price * Quantity) AS OrderAmount, 
+AVG(Price * Quantity) AS Average_orderamount , MAX(Price * Quantity) AS Highest_orderamount,
+MIN(Price * Quantity) AS Lowest_orderAmount FROM Orders;
+
+-- Q10
+-- Display the following employee salary statistics:
+-- Total employees
+-- Total salary
+-- Average salary
+-- Highest salary
+-- Lowest salary
+SELECT COUNT(*) AS total_employees , SUM(Salary) AS totalSalary, 
+AVG(Salary) AS avg_salary , MAX(Salary) AS Highest_salary,
+MIN(Salary) AS lowestSalary FROM Orders;
