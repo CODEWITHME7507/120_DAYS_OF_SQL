@@ -1,0 +1,71 @@
+-- ==========================================
+-- Day 22 Practice Questions
+-- Topic: GROUP BY
+-- ==========================================
+
+-- Q1
+-- Count the number of employees in each Department.
+
+SELECT Department, COUNT(*) AS Number_of_employee FROM Employees 
+GROUP BY Department;
+
+-- Q2
+-- Find the total Salary paid for each Department.
+
+SELECT Department,SUM(Salary) AS Total_salary_of_all FROM Employees
+GROUP BY Department;
+
+-- Q3
+-- Find the average Salary for each Department.
+
+SELECT Department,AVG(Salary) AS Average_Salary FROM Employees
+GROUP BY Department;
+
+-- Q4
+-- Find the highest Salary in each Department.
+
+SELECT Department, MAX(Salary) AS Highest_salary FROM Employees
+GROUP BY Department;
+
+-- Q5
+-- Find the lowest Salary in each Department.
+
+SELECT Department , MIN(Salary) AS LOW_Salary FROM Employees
+GROUP BY Department;
+
+-- Q6
+-- Count the number of customers in each City.
+
+SELECT Order_location AS City, COUNT(*) AS Number_of_customers FROM Orders1
+GROUP BY City;
+
+-- Q7
+-- Find the total sales amount for each Customer.
+
+SELECT CustomerName,SUM(Price*Quantity) AS Total_sales FROM Orders
+GROUP BY CustomerName;
+
+-- Q8
+-- Find the average Product Price for each Category.
+
+SELECT Category , AVG(Price * Quantity) AS Avg_price FROM Orders
+GROUP BY Category;
+
+-- Q9
+-- Find the total OrderAmount for each OrderStatus.
+
+SELECT OrderStatus, SUM(Price*Quantity) AS Total_orderAmount FROM Orders
+GROUP BY OrderStatus;
+
+-- Q10
+-- Display each Department along with:
+-- Total Employees
+-- Total Salary
+-- Average Salary
+-- Highest Salary
+-- Lowest Salary
+-- Group the results by Department.
+
+SELECT Department , COUNT(*) AS Total_Employees_each_dep, SUM(Salary) AS Total_salary , AVG(Salary) AS Avg_salry
+,MAX(Salary) AS High_Salary, MIN(Salary) AS Lowest_salary FROM Employees 
+GROUP BY Department;
