@@ -1,0 +1,71 @@
+-- ==========================================
+-- Day 23 Practice Questions
+-- Topic: GROUP BY with Multiple Columns
+-- ==========================================
+-- Q1
+-- Count the number of employees in each Department and City.
+
+SELECT department,city,COUNT(*) AS Number_of_employees1 FROM Employees1
+GROUP BY department,city;
+
+-- Q2
+-- Find the total Salary for each Department and JobRole.
+
+SELECT department,jobrole,SUM(salary) AS Total_salary FROM Employees1
+GROUP BY department,jobrole;
+
+-- Q3
+-- Find the average Salary for each Department and Gender.
+
+SELECT department,gender, AVG(salary) FROM Employees1
+GROUP BY department, gender;
+
+-- Q4
+-- Find the highest Salary for each Department and JobRole.
+
+SELECT department,jobrole,MAX(salary) AS highest_salary FROM Employees1
+GROUP BY department,jobrole;
+
+-- Q5
+-- Find the lowest Salary for each Department and City.
+
+SELECT department,city,MIN(salary) AS Lowest_salary FROM Employees1
+GROUP BY department,city;
+
+-- Q6
+-- Count the number of customers for each City and Country.
+
+SELECT city,country,COUNT(*) AS number_of_customer FROM Orders2
+GROUP BY city,country;
+
+-- Q7
+-- Find the total OrderAmount for each Customer and OrderStatus.
+
+SELECT customername,orderstatus,SUM(price * quantity) AS total_orderamount FROM Orders2
+GROUP BY customername,orderstatus;
+
+-- Q8
+-- Find the average Product Price for each Category and Brand.
+
+SELECT Category,brand,AVG(price * quantity) FROM Orders2
+GROUP BY Category,brand;
+
+-- Q9
+-- Count the number of orders for each OrderStatus and PaymentMethod.
+
+SELECT orderstatus,paymentmethod,COUNT(*) AS Number_of_orders FROM Orders2
+GROUP BY  orderstatus,paymentmethod;
+
+-- Q10
+-- Display each Department and JobRole along with:
+-- Total Employees
+-- Total Salary
+-- Average Salary
+-- Highest Salary
+-- Lowest Salary
+-- Group the results by both Department and JobRole.
+
+SELECT department,jobrole,COUNT(*) AS Total_employees,SUM(salary) AS Total_salary,
+AVG(salary),MAX(salary) AS Highest_salary,MIN(salary) AS Lowest_salary FROM Employees1
+GROUP BY department,jobrole;
+
