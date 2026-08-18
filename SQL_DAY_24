@@ -1,0 +1,71 @@
+-- ==========================================
+-- Day 24 Practice Questions
+-- Topic: HAVING Clause
+-- ==========================================
+
+-- Q1
+-- Find departments having more than 5 employees.
+
+SELECT department,COUNT(*) AS Number_of_employees FROM Employees1
+GROUP BY department HAVING Number_of_employees > 5;
+
+-- Q2
+-- Find departments where the total Salary is greater than 300000.
+
+SELECT department,SUM(salary) AS Total_salary FROM Employees1
+GROUP BY department HAVING Total_salary > 300000;
+
+-- Q3
+-- Find departments where the average Salary is greater than 50000.
+
+SELECT department , AVG(salary) AS Average_salary FROM Employees1
+GROUP BY department HAVING Average_salary > 50000;
+
+-- Q4
+-- Find cities having more than 10 customers.
+
+SELECT city,COUNT(*) AS customers FROM Orders2
+GROUP BY city HAVING customers > 10;
+
+-- Q5
+-- Find product categories where the average Price is greater than 1000.
+
+SELECT category,AVG(price * quantity) AS average_price FROM Orders2
+GROUP BY category HAVING average_price > 1000;
+
+-- Q6
+-- Find customers whose total OrderAmount is greater than 10000.
+
+SELECT customername,SUM(price*quantity) AS Orderamount FROM Orders2
+GROUP BY customername HAVING Orderamount > 10000;
+
+-- Q7
+-- Find OrderStatus groups having more than 20 orders.
+
+SELECT orderstatus,COUNT(*) AS orders FROM Orders2
+GROUP BY orderstatus HAVING orders > 20; 
+
+-- Q8
+-- Find Department and JobRole combinations where the average Salary
+-- is greater than 60000.
+
+SELECT department,jobrole,AVG(salary) AS Average_salary FROM Employees1
+GROUP BY department,jobrole HAVING Average_salary > 60000;
+
+-- Q9
+-- Find cities where the highest employee Salary is greater than 80000.
+
+SELECT city,MAX(salary) AS highest_salary FROM Employees1
+GROUP BY city HAVING highest_salary > 80000;
+
+-- Q10
+-- Display each Department with:
+-- Total Employees
+-- Total Salary
+-- Average Salary
+-- Only show departments where:
+-- Total Employees > 5
+-- AND Average Salary > 50000.
+
+SELECT department,COUNT(*) AS Total_employees,SUM(salary) AS Total_salary ,AVG(salary) AS Average_salary FROM Employees1
+GROUP BY department HAVING Total_employees > 5 AND Average_salary > 50000;
