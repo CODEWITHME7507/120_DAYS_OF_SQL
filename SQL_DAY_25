@@ -1,0 +1,76 @@
+-- ==========================================
+-- Day 25 Practice Questions
+-- Topic: GROUP BY + HAVING + Aggregate Functions
+-- ==========================================
+
+-- Q1
+-- Find departments having more than 3 employees
+-- and display the total number of employees.
+
+SELECT department,COUNT(*) AS number_of_employees FROM Employees1
+GROUP BY department HAVING number_of_employees > 3;
+
+-- Q2
+-- Find departments where the total Salary is greater than 250000.
+
+SELECT department,SUM(salary) AS Total_salary FROM Employees1
+GROUP BY department HAVING Total_salary > 250000; 
+
+-- Q3
+-- Find departments where the average Salary is between 40000 and 70000.
+
+SELECT department , AVG(salary) AS average_salary FROM Employees1
+GROUP BY department HAVING average_salary BETWEEN 40000 AND 70000;
+
+-- Q4
+-- Find cities having more than 5 customers
+-- and display the customer count.
+
+SELECT city,COUNT(*) AS number_of_customers FROM Employees1
+GROUP BY city HAVING number_of_customers > 5;
+
+-- Q5
+-- Find product categories where the total Quantity is greater than 500.
+
+SELECT category ,SUM(quantity) AS Total_quantity FROM Orders2
+GROUP BY category HAVING Total_quantity > 500;
+
+-- Q6
+-- Find product categories where the average Price is greater than 1000
+-- and the highest Price is greater than 2000.
+ 
+SELECT category , AVG(price) AS Average_salary , MAX(price) AS highest_price FROM Orders2
+GROUP BY category HAVING Average_salary > 10000 AND highest_price > 2000;
+ 
+-- Q7
+-- Find customers whose total OrderAmount is greater than 15000
+-- and who have placed more than 3 orders.
+
+SELECT customername ,SUM(price*quantity) AS ordersamount, COUNT(*) AS Total_orders  FROM Orders2
+GROUP BY customername HAVING ordersamount >15000 AND Total_orders > 3;
+
+-- Q8
+-- Find OrderStatus groups having more than 10 orders
+-- and an average OrderAmount greater than 2000.
+
+SELECT orderstatus,COUNT(*) AS orders, AVG(price * quantity) AS averageamount FROM Orders2
+GROUP BY orderstatus HAVING orders > 10 AND averageamount > 2000;
+
+-- Q9
+-- Find Department and JobRole combinations where:
+-- Total Employees > 3
+-- AND Average Salary > 50000.
+-- Display Department, JobRole, Employee Count, and Average Salary.
+
+SELECT department,jobrole,COUNT(*) AS Total_emp , AVG(salary) AS averagesal  FROM Employees1
+GROUP BY department,jobrole HAVING Total_emp > 3 AND averagesal > 50000;
+
+-- Q10
+-- Find departments where:
+-- Total Employees > 5
+-- Total Salary > 300000
+-- Average Salary > 50000.
+-- Display Department, Employee Count, Total Salary, and Average Salary.
+
+SELECT department , COUNT(*) AS total_emp , SUM(salary) AS total_sal , AVG(salary) AS average_salary FROM Employees1
+GROUP BY department HAVING total_emp > 5 AND total_sal > 300000 AND average_salary > 50000;
