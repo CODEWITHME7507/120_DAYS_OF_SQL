@@ -1,0 +1,67 @@
+-- ==========================================
+-- Day 26 Practice Questions
+-- Topic: Date Functions
+-- ==========================================
+
+-- Q1
+-- Display OrderID and OrderDate.
+-- Extract the year from OrderDate using YEAR().
+
+SELECT orderid,YEAR(orderdate) From orders2; 
+
+-- Q2
+-- Display OrderID and OrderDate.
+-- Extract the month from OrderDate using MONTH().
+
+SELECT orderid,MONTH(orderdate) FROM Orders2;
+
+-- Q3
+-- Display OrderID and OrderDate.
+-- Extract the day from OrderDate using DAY().
+
+SELECT orderid,DAY(orderdate) FROM Orders2; 
+
+-- Q4
+-- Display all orders placed in the year 2025.
+
+SELECT * FROM orders2
+WHERE YEAR(orderdate) = 2025;
+
+-- Q5
+-- Display all orders placed in the month of January.
+
+SELECT * FROM Orders2 
+WHERE MONTH(orderdate) = 1;
+
+-- Q6
+-- Display OrderID and OrderDate.
+-- Calculate the number of days between OrderDate and DeliveryDate.
+
+SELECT orderid , DAY(orderdate) - DAY(delivery_date)   AS days FROM Orders2;
+
+-- Q7
+-- Display all orders where DeliveryDate is later than OrderDate.
+
+SELECT * FROM Orders2
+WHERE orderdate > deliverydate;
+
+-- Q8
+-- Display OrderID and OrderDate.
+-- Extract the year and month from OrderDate
+-- and display them as separate columns.
+
+SELECT orderid , orderdate, MONTH(orderdate) AS montHH,YEAR(orderdate) AS yeaRR FROM Orders2;
+
+-- Q9
+-- Display all employees whose JoiningDate is before '2023-01-01'.
+
+SELECT * FROM Employees1
+WHERE Joindate < '2023-01-01';
+
+-- Q10
+-- Display OrderID, OrderDate, and DeliveryDate.
+-- Calculate the delivery time in days.
+-- Display only orders where the delivery time is greater than 5 days.
+
+SELECT Orderid,orderdate,DAY(deliverydate) FROM Orders2
+WHERE DAY(deliverydate) - DAY (orderdate) > 5;
