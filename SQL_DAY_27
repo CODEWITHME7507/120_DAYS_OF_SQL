@@ -1,0 +1,75 @@
+-- ==========================================
+-- Day 27 Practice Questions
+-- Topic: Advanced Date Functions
+-- ==========================================
+
+-- Q1
+-- Display OrderID and OrderDate.
+-- Extract the weekday name from OrderDate.
+
+SELECT orderid,orderdate,DAYNAME(orderdate) AS weekday FROM orders2;
+
+-- Q2
+-- Display OrderID and OrderDate.
+-- Extract the month name from OrderDate.
+
+SELECT orderid,orderdate,MONTHNAME(orderdate) AS Monthname FROM Orders2;
+
+-- Q3
+-- Display OrderID and OrderDate.
+-- Calculate the number of months between OrderDate and DeliveryDate.
+
+SELECT orderid,orderdate, MONTH(orderdate) - MONTH(delivery_date) AS difference_month FROM Orders2;
+
+-- Q4
+-- Display all orders where the OrderDate falls on a weekend.
+
+SELECT * FROM Orders2
+WHERE DAYNAME(orderdate) IN ('Sunday','Saturday');
+
+-- Q5
+-- Display all employees whose JoiningDate is within the last 2 years.
+
+SELECT * FROM Employees1
+WHERE joindate >= DATE_SUB(CURDATE(),INTERVAL 2 YEAR);
+
+-- Q6
+-- Display EmployeeName and JoiningDate.
+-- Calculate the number of years each employee has worked.
+
+SELECT empname,joindate,TIMESTAMPDIFF(YEAR,joindate,CURDATE() ) AS experiance FROM Employees1;
+
+-- Q7
+-- Display OrderID and OrderDate.
+-- Add 7 days to OrderDate and display the result as ExpectedDeliveryDate.
+
+SELECT orderid,orderdate,orderdate + INTERVAL 7 DAY AS expecteddeliverydate FROM Orders;
+
+-- Q8
+-- Display OrderID and DeliveryDate.
+-- Subtract 3 days from DeliveryDate and display the result as DispatchDeadline.
+
+SELECT orderid,Deliverydate , Deliverydate - INTERVAL 3 DAY AS Dispatchdeadline FROM Orders2;
+
+-- Q9
+-- Display all orders placed during the year 2025
+-- and extract the quarter in which each order was placed.
+
+SELECT *,QUARTER(orderdate) AS Quarters FROM Orders2 
+WHERE YEAR(orderdate) = 2025;
+
+-- Q10
+-- Display OrderID, OrderDate, and DeliveryDate.
+-- Calculate the delivery time in days.
+-- Create a column named DeliveryStatus:
+-- If delivery time <= 3 days, display 'Fast'.
+-- If delivery time <= 7 days, display 'Normal'.
+-- Otherwise, display 'Delayed'.
+
+SELECT orderid , orderdate , deliverydate , DATE_ADD(orderdate,INTERVAL deliverydate DAY) AS deliverydate,
+CASE 
+    WHEN DATEDIFF(deliverydate,orderdate) <= 3 THEN 'Fast delivery'
+    WHEN DATEDIFF(deliverydate,orderdate) <= 7 THEN 'Normal delivery'
+    ELSE 'delayed'
+END AS deliverystatus    
+FROM Orders2;
