@@ -1,0 +1,91 @@
+-- ==========================================
+-- Day 28 Practice Questions
+-- Topic: Real-World Date Analysis
+-- ==========================================
+
+-- Q1
+-- Find all orders that were delivered more than 7 days after
+-- they were placed.
+-- Display OrderID, OrderDate, DeliveryDate, and DeliveryDays.
+
+SELECT orderid,deliverydate,orderdate,DAY(deliverydate) FROM Orders2
+WHERE DATEDIFF(deliverydate,orderdate) > 7;
+
+-- Q2
+-- Find employees who joined during a leap year.
+-- Display EmployeeName, JoiningDate, and JoiningYear.
+
+SELECT empname,joindate,YEAR(joindate) AS joiningyear FROM Employees1
+WHERE MOD(YEAR(joindate),400) = 0 or (MOD(YEAR(joindate),4)=0 AND 
+MOD(YEAR(joindate),100) <> 0) ;
+
+-- Q3
+-- Find the month that contains the highest number of orders.
+-- Display the month name and number of orders.
+
+SELECT MONTHNAME(orderdate) AS Months,COUNT(*) AS numoforders  FROM Orders2
+GROUP BY Months ORDER BY numoforders DESC LIMIT 1;
+
+
+-- Q4
+-- Find customers who placed their first order during the year 2025.
+-- Display CustomerID, CustomerName, and FirstOrderDate.
+
+SELECT orderid,customername,MIN(orderdate) as firstorderdate FROM Orders2
+WHERE YEAR(orderdate) = 2025
+GROUP BY orderid;
+
+-- Q5
+-- Find orders that were placed on a weekend and delivered within
+-- 3 days.
+-- Display OrderID, OrderDate, DeliveryDate, and DeliveryDays.
+
+SELECT orderid,orderdate,deliverydate,DATEDIFF(deliverydate,orderdate) AS deliverydays FROM Orders2
+WHERE DATEDIFF(deliverydate,orderdate) <= 3;
+
+-- Q6
+-- Find employees who have completed more than 5 years with the company.
+-- Display EmployeeName, JoiningDate, and YearsWorked.
+
+SELECT empname,joindate,TIMESTAMPDIFF(YEAR,joindate,CURDATE()) AS Yearworked FROM Employees1
+WHERE TIMESTAMPDIFF(YEAR,joindate,CURDATE()) >5;
+
+-- Q7
+-- Find the percentage of orders that were delivered within 5 days.
+-- Return the result as a percentage.
+
+SELECT ROUND(COUNT(*) * 100.0/(SELECT COUNT(*) FROM Orders2),2) AS orderpercentage FROM Orders2
+WHERE DATEDIFF(deliverydate,orderdate) <= 5;
+
+-- Q8
+-- Find the average delivery time for each month.
+-- Display Month, AverageDeliveryDays.
+-- Sort the result from the fastest month to the slowest month.
+
+SELECT MONTH(deliverydate) AS Months ,ROUND(AVG(DAY(deliverydate))) AS averagedeliverydate FROM Orders2
+GROUP BY Months ORDER BY averagedeliverydate DESC;
+
+-- Q9
+-- Find the month with the highest number of delayed orders.
+-- An order is considered delayed when DeliveryDays > 7.
+-- Display MonthName and DelayedOrderCount.
+
+SELECT MONTHNAME(orderdate) AS months ,COUNT( *) AS delayeddeliverydate FROM Orders2 WHERE DATEDIFF(deliverydate,orderdate) >= 7
+GROUP BY months ORDER BY delayeddeliverydate DESC LIMIT 1;
+
+-- Q10
+-- Analyse each customer's ordering activity.
+-- Display:
+-- CustomerID
+-- CustomerName
+-- FirstOrderDate
+-- LastOrderDate
+-- TotalOrders
+-- DaysBetweenFirstAndLastOrder
+--
+-- Only include customers who have placed at least 2 orders.
+-- Sort customers by DaysBetweenFirstAndLastOrder in descending order.
+
+SELECT orderid,customername, MIN(orderdate) AS Firstorderdate, MAX(orderdate) AS lastorderdate , 
+COUNT(*) AS totalOrders , DATEDIFF(MAX(orderdate),MIN(orderdate)) AS daydiff FROM Orders2
+GROUP BY orderid HAVING totalOrders > 2  ORDER BY daydiff DESC;
