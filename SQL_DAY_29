@@ -1,0 +1,109 @@
+-- ==========================================
+-- Day 29 Practice Questions
+-- Topic: String Functions – Advanced & Real-World Analysis
+-- ==========================================
+
+-- Q1
+-- Find customers whose names contain more than one word.
+-- Display CustomerID, CustomerName, and the number of words
+-- in their name.
+
+SELECT Customerid,Customername,length(Customername) AS Number_of_words FROM Customers
+WHERE LENGTH(Customername) > 1;
+
+-- Q2
+-- Find customers whose email addresses belong to the 'gmail.com'
+-- domain.
+-- Display CustomerID, CustomerName, and Email.
+
+SELECT Customerid,Customername,Email FROM Customers
+WHERE Email LIKE '%gmail.com%';
+
+-- Q3
+-- Find customers whose email username appears to contain
+-- their first name.
+-- Ignore differences in uppercase and lowercase.
+-- Display CustomerName and Email.
+
+SELECT Customername,Email FROM Customers
+WHERE LOWER(Email) LIKE CONCAT('%', LOWER(SUBSTRING_INDEX(CustomerName, ' ', 1)), '%');
+
+-- Q4
+-- Find products whose names contain the word 'phone',
+-- regardless of capitalization.
+-- Display ProductID and ProductName.
+
+SELECT orderid,productname FROM Orders2
+WHERE LOWER(productname) LIKE '%phone%';
+
+-- Q5
+-- Identify customer records where the name contains unnecessary
+-- leading or trailing spaces.
+-- Display CustomerID, original CustomerName, and cleaned CustomerName.
+
+SELECT Customerid,customername,TRIM(Customername) AS Cleanedname FROM Customers
+WHERE Customername <> TRIM(Customername) ;
+
+-- Q6
+-- Find customers whose phone numbers are stored using different
+-- formats such as spaces, '-', or brackets.
+-- Display CustomerID and PhoneNumber.
+
+SELECT Customerid , phonenumber FROM Custmers
+WHERE phonenumber REGEXP '[{}- ]';
+
+-- Q7
+-- Create a cleaned version of customer names by:
+-- removing unnecessary spaces,
+-- standardising the letter case,
+-- and displaying the result alongside the original name.
+-- Display CustomerID, OriginalName, and CleanedName.
+
+SELECT customerid,customername AS Originalname ,
+CONCAT(
+        UPPER(LEFT(TRIM(CustomerName), 1)),
+        LOWER(SUBSTRING(TRIM(CustomerName), 2))
+       ) AS CleanedName
+FROM Customers;       
+
+-- Q8
+-- Analyse product names based on their length:
+-- Short   → fewer than 10 characters
+-- Medium  → 10 to 20 characters
+-- Long    → more than 20 characters
+-- Display ProductName, NameLength, and NameCategory.
+
+SELECT productname, LENGTH(productname) AS Namelength, 
+CASE 
+    WHEN LENGTH(productname) < 10 THEN 'Fewer'
+    WHEN LENGTH(productname) BETWEEN 10 AND 20 THEN 'Medium'
+    ELSE 'Long'
+    END AS Namecategory
+FROM Orders2;    
+
+-- Q9
+-- Find customers whose email addresses do not contain a valid
+-- '@' character or do not end with '.com'.
+-- Display CustomerID, CustomerName, and Email.
+
+SELECT customerid , customername , Email FROM Customers
+WHERE Email NOT LIKE '%@%' OR Email NOT LIKE '%.com';
+
+-- Q10
+-- Perform a customer contact-data quality analysis.
+-- Display:
+-- CustomerID
+-- CustomerName
+-- CleanedName
+-- Email
+-- EmailDomain
+-- PhoneNumber
+-- PhoneLength
+-- 
+-- Identify records where the name contains extra spaces,
+-- the email does not contain '@',
+-- or the phone number has an unexpected length.
+
+SELECT Customerid,customername, TRIM(customername) AS Cleanedname, Email, 
+SUBSTRING_INDEX(Email, '@', -1) AS EmailDomain,phonenumber,length(phonenumber)
+WHERE Email NOT LIKE '%@%' OR LENGTH(phonenumber) > 10 ;
