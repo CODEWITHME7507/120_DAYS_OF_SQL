@@ -1,0 +1,171 @@
+-- ==========================================
+-- Day 30 Practice Questions
+-- Topic: Advanced String Functions & Data Cleaning
+-- ==========================================
+
+-- Q1
+-- Find customers whose names contain more than one word.
+-- Display CustomerID, CustomerName, and WordCount.
+
+SELECT customerid, customername, LENGTH(customername) AS wordcount FROM Customers
+WHERE LENGTH(customername) > 1;
+
+
+-- Q2
+-- Find customers whose email addresses belong to the same
+-- domain as at least 10 other customers.
+-- Display EmailDomain and CustomerCount.
+
+SELECT SUBSTRING(Email, CHARINDEX('@', Email) + 1, LEN(Email)) AS EmailDomain,COUNT(*) AS customercount FROM Customers
+GROUP BY EmailDomain HAVING customercount >= 10;
+
+-- Q3
+-- Find products where the cleaned product name is different
+-- from the original product name because of extra spaces.
+-- Display ProductID, OriginalName, and CleanedName.
+
+SELECT orderid,productname AS Original_name , TRIM(productname) AS Cleaned_name FROM Orders2
+WHERE productname !=  TRIM(productname);
+
+-- Q4
+-- Find customers whose email username contains their name
+-- after removing spaces and ignoring letter case.
+-- Display CustomerID, CustomerName, and Email.
+
+SELECT customerid,customername,email FROM Customers
+WHERE TRIM(customername) = email;
+
+-- Q5
+-- Find products whose names contain repeated consecutive spaces
+-- or unnecessary leading/trailing spaces.
+-- Display ProductID, ProductName, and CleanedProductName.
+
+SELECT
+    ProductID,
+    ProductName,
+    TRIM(REPLACE(ProductName, '  ', ' ')) AS CleanedProductName
+FROM Products
+WHERE ProductName LIKE ' %'
+   OR ProductName LIKE '% '
+   OR ProductName LIKE '%  %';
+   
+-- Q6
+-- Analyse customer names and classify them based on the number
+-- of characters:
+-- Less than 10  → 'Short'
+-- 10–20         → 'Medium'
+-- More than 20  → 'Long'
+-- Display CustomerName, NameLength, and NameCategory.
+
+SELECT customername, LENGTH(Customername), 
+   CASE 
+   WHEN LENGTH(Customername) < 10 THEN 'Short'
+   WHEN LENGTH(Customername) BETWEEN 10 AND 20 THEN 'Medium'
+   WHEN LENGTH(Customername) > 20 THEN 'Long'
+   END AS Namecategory
+FROM Customers;   
+   
+
+-- Q7
+-- Find customers whose email addresses appear invalid because
+-- they do not contain exactly one '@' character or do not contain
+-- a domain after '@'.
+-- Display CustomerID, CustomerName, and Email.
+
+SELECT
+    CustomerID,
+    CustomerName,
+    Email
+FROM Customers
+WHERE
+    Email IS NULL
+    OR LEN(Email) - LEN(REPLACE(Email, '@', '')) <> 1
+    OR CHARINDEX('@', Email) = LEN(Email);
+
+-- Q8
+-- Find the top 5 email domains based on the number of customers.
+-- Display EmailDomain and CustomerCount.
+
+SELECT  SUBSTRING(Email, CHARINDEX('@', Email) + 1, LEN(Email)) AS EmailDomain, COUNT(*) AS CustomerCount
+FROM Customers
+WHERE Email IS NOT NULL
+  AND Email LIKE '%@%'
+GROUP BY SUBSTRING(Email, CHARINDEX('@', Email) + 1, LEN(Email))
+ORDER BY CustomerCount DESC;
+
+-- Q9
+-- Create a cleaned customer contact report.
+-- Display:
+-- CustomerID
+-- CleanedName
+-- EmailDomain
+-- CleanedPhone
+-- NameLength
+--
+-- Remove unnecessary spaces and standardise the text before
+-- generating the report.
+
+SELECT CustomerID,TRIME(customername) AS cleaned_name, SUBSTRING(email,CHARINDEX('@',email)+1,LEN(email))AS Emaildomain, TRIM(contact) AS Cleanedphone , LENGTH(customername) AS Namelength;
+
+-- Q10
+-- Perform a data-quality analysis on customer information.
+-- Find records where at least one of the following is true:
+-- 1. CustomerName contains unnecessary spaces.
+-- 2. Email does not appear to have a valid domain.
+-- 3. PhoneNumber contains formatting characters.
+-- 4. CustomerName is unusually short.
+--
+-- Display CustomerID, CustomerName, Email, PhoneNumber,
+-- and a DataQualityIssue column describing the problem.
+
+SELECT
+    CustomerID,
+    CustomerName,
+    Email,
+    PhoneNumber,
+
+    CONCAT(
+        CASE
+            WHEN CustomerName <> LTRIM(RTRIM(CustomerName))
+              OR CustomerName LIKE '%  %'
+            THEN 'Unnecessary spaces; '
+            ELSE ''
+        END,
+
+        CASE
+            WHEN Email IS NULL
+              OR Email NOT LIKE '%_@_%._%'
+            THEN 'Invalid email domain; '
+            ELSE ''
+        END,
+
+        CASE
+            WHEN PhoneNumber LIKE '%-%'
+              OR PhoneNumber LIKE '% %'
+              OR PhoneNumber LIKE '%(%'
+              OR PhoneNumber LIKE '%)%'
+              OR PhoneNumber LIKE '%+%'
+            THEN 'Phone formatting characters; '
+            ELSE ''
+        END,
+
+        CASE
+            WHEN LEN(LTRIM(RTRIM(CustomerName))) < 3
+            THEN 'Customer name too short; '
+            ELSE ''
+        END
+    ) AS DataQualityIssue
+
+FROM Customers
+
+WHERE
+       CustomerName <> LTRIM(RTRIM(CustomerName))
+    OR CustomerName LIKE '%  %'
+    OR Email IS NULL
+    OR Email NOT LIKE '%_@_%._%'
+    OR PhoneNumber LIKE '%-%'
+    OR PhoneNumber LIKE '% %'
+    OR PhoneNumber LIKE '%(%'
+    OR PhoneNumber LIKE '%)%'
+    OR PhoneNumber LIKE '%+%'
+    OR LEN(LTRIM(RTRIM(CustomerName))) < 3;
