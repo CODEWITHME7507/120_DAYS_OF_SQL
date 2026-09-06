@@ -1,0 +1,83 @@
+-- ==========================================
+-- Day 32 Practice Questions
+-- Topic: Conditional Aggregation
+-- ==========================================
+
+-- Q1. Find the total number of employees in each department
+-- and also count how many employees have a salary greater than 50,000.
+
+SELECT Department,COUNT(*) AS Total_emp,SUM(CASE WHEN Salary > 50000 THEN 1 ELSE 0 END) AS high_sal
+FROM Employees GROUP BY Department;
+
+-- Q2. For each department, calculate:
+-- Total employees, employees with salary >= 60,000,
+-- and employees with salary < 60,000.
+
+SELECT Department , COUNT(Empid) AS Total_Emp , SUM(CASE WHEN Salary >= 60000 THEN 1 ELSE 0 END) AS high_sal,
+SUM(CASE WHEN Salary < 60000 THEN 1 ELSE 0 END) AS Medium_sal FROM Employees GROUP BY Department;   
+
+-- Q3. For each city, find:
+-- Total customers, customers who have a phone number,
+-- and customers who do not have a phone number.
+
+SELECT Location AS City, COUNT(*) AS Total_cus , SUM(CASE WHEN Mobile_num IS NULL THEN 0 ELSE 1 END) AS Total_have_num 
+FROM Orders1 GROUP BY City;
+
+-- Q4. For each order status, calculate:
+-- Total orders and the number of orders whose amount is greater than 5,000.
+
+SELECT orderstatus, COUNT(*) AS Total_Orders , SUM(CASE WHEN Price*quantity > 5000 THEN 1 ELSE 0 END) AS High_amount_order
+FROM Orders2 GROUP BY orderstatus;
+
+-- Q5. For each product category, calculate:
+-- Total products, products with price >= 1,000,
+-- and products with price < 1,000.
+
+SELECT category,COUNT(*) AS total_product , SUM(CASE WHEN Price*quantity >= 1000 THEN 1 ELSE 0 END) AS High_price_prd,
+SUM(CASE WHEN Price * quantity < 1000 THEN 1 ELSE 0 END) AS Low_price_order FROM Orders2 GROUP BY category;
+
+-- Q6. For each department, calculate:
+-- Total employees, employees with salary >= 50,000,
+-- employees with salary between 30,000 and 50,000,
+-- and employees with salary below 30,000.
+
+SELECT Department , COUNT(*) AS Total_emp, SUM(CASE WHEN Salary >= 50000 THEN 1 ELSE 0 END) AS High_sal ,
+SUM(CASE WHEN Salary BETWEEN 30000 AND 50000 THEN 1 ELSE 0 END) AS Medium_sal, 
+SUM(CASE WHEN Salary < 30000 THEN 1 ELSE 0 END) AS Low_sal FROM Employees GROUP BY department;
+
+-- Q7. For each city, calculate:
+-- Total customers and the number of customers who placed
+-- at least one order with amount greater than 10,000.
+
+SELECT City, SUM(CASE WHEN Price* quantity > 10000 THEN 1 ELSE 0 END) AS Num_of_cus FROM Orders2
+GROUP BY City;
+
+
+-- Q8. For each order status, calculate:
+-- Total orders, orders above 5,000,
+-- orders between 2,000 and 5,000,
+-- and orders below 2,000.
+
+SELECT Orderstatus , COUNT(*) AS Total_orders , SUM(CASE WHEN Price * quantity > 5000 THEN 1 ELSE 0 END) AS Above5000,
+SUM(CASE WHEN Price * quantity BETWEEN 2000 AND 5000 THEN 1 ELSE 0 END) AS Between2000_to_5000 ,
+SUM(CASE WHEN Price * quantity < 2000 THEN 1 ELSE 0 END) AS Below2000 FROM Orders2
+GROUP BY Orderstatus;
+
+-- Q9. For each product category, calculate:
+-- Total quantity sold, quantity from products priced above 1,000,
+-- and quantity from products priced at or below 1,000.
+
+SELECT Category,SUM(quantity) AS Total_quantity_sold , SUM(CASE WHEN Price > 1000 THEN quantity ELSE 0 END) AS Above1000,
+SUM(CASE WHEN Price < 1000 THEN quantity ELSE 0 END) AS Below1000 FROM Orders2 GROUP BY Category;
+
+-- Q10. For each department, create a performance summary:
+-- Total employees,
+-- High earners (salary >= 70,000),
+-- Medium earners (salary 40,000–69,999),
+-- Low earners (salary < 40,000),
+-- and the percentage of employees who are high earners.
+
+SELECT Department,COUNT(*) AS total_emp,SUM(CASE WHEN Salary >= 70000 THEN 1 ELSE 0 END) AS High_earners,
+SUM(CASE WHEN Salary BETWEEN 40000 AND 69999 THEN 1 ELSE 0 END) AS Medium_earners,
+SUM(CASE WHEN Salary < 40000 THEN 1 ELSE 0 END) AS Low_earnners ,SUM(CASE WHEN Salary >= 70000 THEN 1 ELSE 0 END)*100 / COUNT(*) AS high_percentage  FROM Employees 
+GROUP BY Department;
