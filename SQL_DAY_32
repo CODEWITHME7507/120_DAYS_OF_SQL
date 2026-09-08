@@ -1,0 +1,120 @@
+-- ==========================================
+-- Day 32 Practice Questions
+-- Topic: Combining Multiple SQL Concepts
+-- ==========================================
+
+
+-- Q1. Find each department's total employees, average salary,
+-- number of employees earning above 50,000,
+-- and number of employees earning below 30,000.
+-- Show only departments having more than 3 employees.
+
+SELECT Department, COUNT(*) AS Total_emp, SUM(CASE WHEN Salary > 50000 THEN 1 ELSE 0 END) AS Above_50000,
+SUM(CASE WHEN Salary < 30000 THEN 1 ELSE 0 END) AS Below_30000 FROM Employees
+GROUP BY Department HAVING Total_emp > 3;
+
+-- Q2. Find each city's total customers, total orders,
+-- total revenue, and average order value.
+-- Show only cities where total revenue is greater than 1,00,000
+-- and the average order value is greater than 2,000.
+
+ SELECT City,COUNT(DISTINCT Customer_id) AS Total_customers , COUNT(DISTINCT Order_id) AS Total_orders,
+ SUM(Price*Quantity) AS Total_revenue, AVG(Price*Quantity) AS Average_value FROM Orders
+ GROUP BY City HAVING Total_revenue > 100000 AND Average_value > 2000;
+
+-- Q3. For each product category, calculate:
+-- total products, total quantity, average price,
+-- number of products priced above 1,000,
+-- and total inventory value (price × quantity).
+-- Show categories where total inventory value is greater than 1,00,000.
+
+
+SELECT Category, COUNT(DISTINCT ProductName) AS Total_product,
+SUM(Quantity) AS Total_quantity, AVG(Price * Quantity) AS Average_price,
+SUM(CASE WHEN Price > 10000 THEN 1 ELSE 0 END) AS Above_1000,
+SUM(Price * Quantity) AS  total_inventotry FROM Orders
+GROUP BY Category HAVING SUM(Price * Quantity) > 100000;
+select * from orders;
+
+-- Q4. For each customer, calculate:
+-- total orders, total amount spent,
+-- number of orders above 5,000,
+-- and average order amount.
+-- Show customers who placed at least 3 orders
+-- and spent more than 20,000 in total.
+
+SELECT Customerid ,CustomerName, COUNT(DISTINCT order_id) AS Total_orders, SUM(Price * Quatity) AS Total_spent,
+SUM(CASE WHEN (Price * Quantity) > 5000 THEN 1 ELSE 0 END) AS Above_5000 , AVG(Price * Quantity) AS Average_amount
+FROM Orders 
+GROUP BY Customer_id,CustomerName HAVING COUNT(DISTINCT order_id)>=3 AND SUM(Price * Quantity) > 20000;
+
+-- Q5. For each department, find:
+-- total employees, total salary,
+-- high earners (salary >= 70,000),
+-- low earners (salary < 40,000),
+-- and average salary.
+-- Show departments where high earners are at least 2.
+
+SELECT Department, COUNT(*) AS total_emp, SUM(Salary) AS total_Salary,
+SUM(CASE WHEN Salary >= 70000 THEN 1 ELSE 0 END) AS high_earners,
+SUM(CASE WHEN Salary < 40000 THEN 1 ELSE 0 END) AS low_earners,
+AVG(Salary) AS Average_salary FROM Employees
+GROUP BY Department HAVING SUM(CASE WHEN Salary >= 70000 THEN 1 ELSE 0 END) >= 2;
+
+-- Q6. For each order status, calculate:
+-- total orders, total revenue,
+-- average order amount,
+-- orders above 5,000,
+-- and percentage of orders belonging to that status.
+-- Sort by total revenue from highest to lowest.
+
+SELECT orderstatus,COUNT(DISTINCT orderid) AS Total_orders,
+SUM(Price * Quantity) AS Total_Revenue, AVG(Price * Quantity) AS Average_amount,
+SUM(CASE WHEN (Price * Quantity) > 5000 THEN 1 ELSE 0 END) AS Above_5000,
+COUNT(DISTINCT orderid) / (SELECT COUNT(DISTINCT orderid) FROM orders2) * 100 AS Percentage
+FROM orders2 GROUP BY orderstatus ORDER BY Total_Revenue DESC ;
+
+-- Q7. For each city, calculate:
+-- total customers,
+-- customers with an email,
+-- customers without an email,
+-- customers with a phone number,
+-- and percentage of customers having both email and phone.
+
+
+SELECT City,COUNT(*) AS Total_customer, SUM(CASE WHEN Email IS NULL THEN 0 ELSE 1 END) AS With_mail,
+SUM(CASE WHEN Email IS NULL THEN 1 ELSE 0 END) AS Without_mail, SUM(CASE WHEN Phone IS NULL THEN 0 ELSE 1 END) AS With_phone,
+SUM(CASE WHEN Phone IS NULL AND Email IS NULL THEN 0 ELSE 1 END) / (SELECT COUNT(*) FROM Customer)*100 AS Percentage
+GROUP BY City;
+
+
+
+-- Q8. For each product category, calculate:
+-- total products,
+-- total quantity,
+-- number of products with quantity below 10,
+-- number of products with quantity 10 or more,
+-- and average price.
+-- Show only categories having more than 5 products.
+
+
+-- Q9. For each department, calculate:
+-- total employees,
+-- average salary,
+-- highest salary,
+-- lowest salary,
+-- number of employees earning above the department average.
+-- Show only departments where the highest salary is above 80,000.
+
+
+-- Q10. Create a monthly business performance report containing:
+-- total orders,
+-- successful orders,
+-- cancelled orders,
+-- successful revenue,
+-- cancelled revenue,
+-- average successful order value,
+-- and cancellation percentage.
+-- Show only months where total orders are greater than 20
+-- and successful revenue is greater than 50,000.
+-- Sort by successful revenue from highest to lowest.
