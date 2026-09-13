@@ -1,0 +1,155 @@
+-- ==========================================
+-- Day 33 Practice Questions
+-- Topic: Final Core SQL + Business Metrics
+-- ==========================================
+
+-- Q1. For each department, calculate:
+-- total employees, total salary, average salary,
+-- highest salary, lowest salary, and salary range.
+-- Show only departments having at least 5 employees
+-- and an average salary greater than 50,000.
+
+SELECT Department , COUNT(*) AS Total_emp, SUM(Salary) AS Total_sal,
+AVG(Salary) AS Avg_sal , MAX(Salary) AS Highest_salary, 
+MIN(Salary) AS Lowest_salary, MAX(Salary) - MIN(Salary) AS Salary_range
+FROM Employees
+GROUP BY Department HAVING COUNT(*) >= 5 AND AVG(Salary) > 50000;
+
+
+-- Q2. For each city, calculate:
+-- total customers, total orders, total revenue,
+-- average order value, and number of high-value orders
+-- where order amount is greater than 5,000.
+-- Show only cities with revenue greater than 1,00,000.
+
+SELECT city, COUNT(DISTINCT Orderid) AS Total_cus, 
+COUNT(*) AS Total_order, ROUND(AVG(quantity)) AS Average_order,
+SUM(CASE WHEN (price * quantity) > 5000 THEN 1 ELSE 0 END) AS High_value_orders
+FROM Orders2
+GROUP BY city HAVING SUM(Price * Quantity) > 100000;
+
+-- Q3. For each product category, calculate:
+-- total products, total quantity, average price,
+-- total inventory value (price × quantity),
+-- and number of products with quantity below 10.
+-- Show only categories having inventory value above 2,00,000.
+
+SELECT Category, COUNT(DISTINCT Productname) AS Total_product,
+SUM(Quantity) AS Total_quantity,AVG(Price * Quantity) AS Average_price,
+SUM(Price * Quantity) AS Total_inventory_price, SUM(CASE WHEN Quantity < 10 THEN 1 ELSE 0 END) AS Number_below_10_quan
+FROM Orders2 
+GROUP BY Category HAVING SUM(Price * Quantity) > 200000;
+
+-- Q4. For each customer, calculate:
+-- total orders, total amount spent, average order value,
+-- highest order amount, and number of orders above 5,000.
+-- Show customers who placed at least 3 orders
+-- and spent more than 25,000.
+
+SELECT Customername , COUNT(*) AS Total_orders,
+SUM(Price * Quantity) AS Total_spent, AVG(Price * Quantity) AS Average_order_value,
+MAX(Price * Quantity) AS Highest_order_amount, SUM(CASE WHEN (Price * Quantity) > 5000 THEN 1 ELSE 0 END) AS Number_of_above_5000
+FROM Orders2
+GROUP BY Customername HAVING COUNT(*) >= 3 AND SUM(Price * Quantity) > 25000;
+
+
+-- Q5. For each department, divide employees into:
+-- High earners: salary >= 70,000
+-- Medium earners: salary between 40,000 and 69,999
+-- Low earners: salary < 40,000
+-- Show total employees, count in each category,
+-- and the percentage of high earners.
+-- Show only departments having more than 5 employees.
+
+SELECT department,SUM(CASE WHEN Salary >= 70000 THEN 1 ELSE 0 END) AS high_earners,
+SUM(CASE WHEN Salary BETWEEN 40000 AND 69999 THEN 1 ELSE 0 END) AS Medium_earners,
+SUM(CASE WHEN Salary < 40000 THEN 1 ELSE 0 END) AS Low_earners,
+COUNT(*) AS Total_emp , ROUND(SUM(CASE WHEN Salary >= 70000 THEN 1 ELSE 0 END) * 100.0 / COUNT(*) , 2 ) AS High_earners_percentage
+FROM Employees 
+GROUP BY department HAVING COUNT(*) > 5;
+
+-- Q6. For each order status, calculate:
+-- total orders, total revenue, average order value,
+-- highest order amount, lowest order amount,
+-- and percentage contribution to total revenue.
+-- Sort by total revenue from highest to lowest.
+
+SELECT Orderstatus, COUNT(*) AS Total_orders,
+SUM(Price * Quantity) AS Total_revenue, AVG(Price * Quantity) AS Average_order_value,
+MAX(Price * Quantity) AS Highest_order_amount, MIN(Price * Quantity) AS Lowest_order,
+ROUND(SUM(CASE WHEN (Price * Quantity) = (Price * Quantity) THEN 1 ELSE 0 END) * 100.0 / (SELECT SUM(Price * Quantity) FROM Orders2) ) AS Percentage_contribution 
+FROM Orders2
+GROUP BY Orderstatus ORDER BY Total_revenue DESC; 
+
+select * from orders2;
+
+
+-- Q7. For each city, calculate:
+-- total customers, customers with email,
+-- customers with phone, customers having both,
+-- and percentage of customers having both email and phone.
+-- Show only cities having at least 10 customers.
+
+SELECT city , COUNT(*) AS Total_customers,
+SUM(CASE WHEN Email IS NOT NULL THEN 1 ELSE 0 END) AS With_mail,
+SUM(CASE WHEN contact IS NOT NULL THEN 1 ELSE 0 END) AS With_Contact,
+SUM(CASE WHEN Email IS NOT NULL AND Contact IS NOT NULL THEN 1 ELSE 0 END) AS Both_mail_contact,
+ROUNT(SUM(CASE WHEN Email IS NOT NULL AND Contact IS NOT NULL THEN 1 ELSE 0 END)*100.0 / COUNT(*),2) AS Both_percentage
+GROUP BY City HAVING COUNT(*) >= 10;
+
+
+-- Q8. For each product category, calculate:
+-- total quantity sold, average price,
+-- total sales value (price × quantity),
+-- number of products priced above 1,000,
+-- and number of products with quantity below 10.
+-- Show only categories where total sales value exceeds 1,00,000.
+
+SELECT Category, SUM(Quantity) AS Total_quantity, 
+AVG(Price * Quantity) AS Average_price, SUM(Price * Quantity) AS Total_price,
+SUM(CASE WHEN Price > 1000 THEN 1 ELSE 0 END) AS Number_of_above_price1000,
+SUM(CASE WHEN Quantity < 10 THEN 1 ELSE 0 END) AS Number_of_below_quantity10
+FROM Orders2 
+GROUP BY Category HAVING SUM(Price * Quantity) > 100000;
+
+-- Q9. For each department, calculate:
+-- total employees, average salary,
+-- number of employees earning above 60,000,
+-- number earning below 30,000,
+-- and percentage of employees earning above 60,000.
+-- Show only departments where more than 20% of employees
+-- earn above 60,000.
+
+SELECT Department, COUNT(*) AS Total_emp,
+AVG(Salary) AS Avg_salary, SUM(CASE WHEN Salary > 60000 THEN 1 ELSE 0 END) AS Above_earners_60000,
+SUM(CASE WHEN Salary < 30000 THEN 1 ELSE 0 END ) AS below_earners_30000
+FROM Employees
+GROUP BY Department HAVING ROUND(SUM(CASE WHEN Salary > 60000 THEN 1 ELSE 0 END)*100.0 / COUNT(*),2) > 20;
+
+-- Q10. Build a complete business performance report for each month:
+-- total orders,
+-- successful orders,
+-- cancelled orders,
+-- successful revenue,
+-- cancelled revenue,
+-- average successful order value,
+-- cancellation rate,
+-- and percentage contribution of each month's
+-- successful revenue to the overall successful revenue.
+-- Show only months having at least 20 orders.
+-- Sort by successful revenue from highest to lowest.
+
+
+SELECT MONTHNAME(Orderdate) as Monthh,
+COUNT(*) AS Total_orders,
+SUM(CASE WHEN Orderstatus= "Delivered" THEN 1 ELSE O END) AS Successful_orders,
+SUM(CASE WHEN Orderstatus = "Cancelled" THEN 1 ELSE 0 END) AS Cancel_orders,
+SUM(CASE WHEN Orderstatus = "Delivered" THEN (Price * Quantity) ELSE 0 END) AS successful_revenue,
+SUM(CASE WHEN Orderstatus = "Cancelled" THEN (Price * Quantity) ELSE 0 END) AS Cancel_revenue,
+AVG(CASE WHEN Orderstatus = "Delivered" THEN (Price * Quantity) ELSE 0 END) AS average_successful_revenue,
+ROUND(SUM(CASE WHEN Orderstatus = "Cancelled" THEN 1 ELSE 0 END)*100.0 / COUNT(*),2) AS Cancel_rate,
+ROUND(SUM(CASE WHEN Orderstatus = "Delivered" THEN (Price * Quantity) ELSE 0 END) * 100.0 / SUM(Price * Quantity)) AS Successful_revenue_contribution
+FROM Orders2
+GROUP BY Monthh HAVING COUNT(*) >= 20 ORDER BY successful_revenue DESC;
+
+
